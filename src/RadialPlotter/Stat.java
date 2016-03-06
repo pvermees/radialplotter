@@ -55,19 +55,19 @@ public class Stat {
 
         // GAMMA FUNCTIONS
         //  Lanczos Gamma Function approximation - N (number of coefficients -1)
-        private static final int lgfN = 6;
+        private static final int LGFN = 6;
         //  Lanczos Gamma Function approximation - Coefficients
-        private static final double[] lgfCoeff = {1.000000000190015, 76.18009172947146, -86.50532032941677, 24.01409824083091, -1.231739572450155, 0.1208650973866179E-2, -0.5395239384953E-5};
+        private static final double[] LGFCOEFF = {1.000000000190015, 76.18009172947146, -86.50532032941677, 24.01409824083091, -1.231739572450155, 0.1208650973866179E-2, -0.5395239384953E-5};
         //  Lanczos Gamma Function approximation - small gamma
-        private static final double lgfGamma = 5.0;
+        private static final double LGFGAMMA = 5.0;
         //  Maximum number of iterations allowed in Incomplete Gamma Function calculations
-        private static final int igfiter = 1000;
+        private static final int IGFITER = 1000;
         //  Tolerance used in terminating series in Incomplete Gamma Function calculations
-        private static final double igfeps = 1e-8;
+        private static final double IGFEPS = 1e-8;
 
         // HISTOGRAM CONSTRUCTION
         //  Tolerance used in including an upper point in last histogram bin when it is outside due to rounding erors
-        private static final double histTol = 1.0001D;
+        private static final double HISTOL = 1.0001D;
 
         // CONSTRUCTORS
         public Stat(){
@@ -129,11 +129,11 @@ public class Stat {
                         ++a;
                         incr *= x/a;
                         sum += incr;
-                        if(Math.abs(incr) < Math.abs(sum)*Stat.igfeps){
+                        if(Math.abs(incr) < Math.abs(sum)*Stat.IGFEPS){
                                 igf = sum*Math.exp(-x+acopy*Math.log(x)- loggamma);
                                 check = false;
                         }
-                        if(i>=Stat.igfiter){
+                        if(i>=Stat.IGFITER){
                                 check=false;
                                 igf = sum*Math.exp(-x+acopy*Math.log(x)- loggamma);
                                 //System.out.println("\nMaximum number of iterations were exceeded in Stat.incompleteGammaSer().\nCurrent value returned.\nIncrement = "+String.valueOf(incr)+".\nSum = "+String.valueOf(sum)+".\nTolerance =  "+String.valueOf(igfeps));
@@ -181,8 +181,8 @@ public class Stat {
                         first = 1.0D/first;
                         incr = first*term;
                         prod *= incr;
-                        if(Math.abs(incr - 1.0D) < igfeps)check = false;
-                        if(i>=Stat.igfiter){
+                        if(Math.abs(incr - 1.0D) < IGFEPS)check = false;
+                        if(i>=Stat.IGFITER){
                                 check=false;
                                 //System.out.println("\nMaximum number of iterations were exceeded in Stat.incompleteGammaFract().\nCurrent value returned.\nIncrement - 1 = "+String.valueOf(incr-1)+".\nTolerance =  "+String.valueOf(igfeps));
                         }
@@ -197,8 +197,8 @@ public class Stat {
         public static double logGamma(double x){
                 double xcopy = x;
                 double fg;
-                double first = x + lgfGamma + 0.5;
-                double second = lgfCoeff[0];
+                double first = x + LGFGAMMA + 0.5;
+                double second = LGFCOEFF[0];
 
                 if(x>=0.0){
                         if(x>=1.0 && x-(int)x==0.0){
@@ -206,7 +206,7 @@ public class Stat {
                         }
                         else{
                                 first -= (x + 0.5)*Math.log(first);
-                                for(int i=1; i<=lgfN; i++)second += lgfCoeff[i]/++xcopy;
+                                for(int i=1; i<=LGFN; i++)second += LGFCOEFF[i]/++xcopy;
                                 fg = Math.log(Math.sqrt(2.0*Math.PI)*second/x) - first;
                         }
                 }
@@ -231,8 +231,8 @@ public class Stat {
         public static double gamma(double x){
 
                 double xcopy = x;
-                double first = x + lgfGamma + 0.5;
-                double second = lgfCoeff[0];
+                double first = x + LGFGAMMA + 0.5;
+                double second = LGFCOEFF[0];
                 double fg;
 
                 if(x>=0.0){
@@ -241,7 +241,7 @@ public class Stat {
                         }
                         else{
                                 first = Math.pow(first, x + 0.5)*Math.exp(-first);
-                                for(int i=1; i<=lgfN; i++)second += lgfCoeff[i]/++xcopy;
+                                for(int i=1; i<=LGFN; i++)second += LGFCOEFF[i]/++xcopy;
                                 fg = first*Math.sqrt(2.0*Math.PI)*second/x;
                         }
                 }
@@ -365,7 +365,7 @@ public class Stat {
                 int j=0;
                 while(test){
                     if(j==nBins-1){
-                        if(data[i]>=binWall[j] && data[i]<=binWall[j+1]*(1.0D + Stat.histTol)){
+                        if(data[i]>=binWall[j] && data[i]<=binWall[j+1]*(1.0D + Stat.HISTOL)){
                             binFreq[1][j]+= 1.0D;
                             dataCheck[i]=1;
                             test=false;
@@ -412,10 +412,10 @@ public class Stat {
                 binZero -= rem/2.0D;
             }
             else{
-                if(Math.abs(rem)/span>histTol){
+                if(Math.abs(rem)/span>HISTOL){
                     // readjust binWidth
                     boolean testBw = true;
-                    double incr = histTol/nBins;
+                    double incr = HISTOL/nBins;
                     int iTest = 0;
                     while(testBw){
                        binWidth += incr;

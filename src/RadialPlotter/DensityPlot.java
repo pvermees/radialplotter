@@ -316,12 +316,18 @@ public final class DensityPlot extends Plot {
     private void printXlabel() throws Exception{
         int length = wmap(ticklength);
         String label = "";
-        if (getUnit() == Data.KA){
-            label = "ka";
-        } else if (getUnit() == Data.MA){
-            label = "Ma";
-        } else if (getUnit() == Data.GA){
-            label = "Ga";
+        switch (getUnit()) {
+            case Data.KA:
+                label = "ka";
+                break;
+            case Data.MA:
+                label = "Ma";
+                break;
+            case Data.GA:
+                label = "Ga";
+                break;
+            default:
+                break;
         }
         g2.drawString(label, wmap(1-rightmargin), hmap(0.8*bottommargin)+3*length);
     }

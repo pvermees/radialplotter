@@ -51,7 +51,7 @@ public abstract class Plot {
         try {
             drawString(e.getMessage(), leftmargin + 0.01, 1 - 1 * lineheight);
         } catch (Exception ex) {
-            if (Data.debugmode){ex.printStackTrace(System.out);}
+            if (Data.DEBUGMODE){ex.printStackTrace(System.out);}
         }
     }
 
@@ -193,7 +193,7 @@ public abstract class Plot {
         this.lineheight = lineheight;
     }
 
-    public double getUnit() throws Exception {
+    public int getUnit() throws Exception {
         return this.unit;
     }
     
@@ -215,7 +215,7 @@ public abstract class Plot {
         }
     }
     
-    public void setUnit(double unit) throws Exception {
+    public void setUnit(int unit) throws Exception {
         this.unit = unit;
     }
     
@@ -265,7 +265,7 @@ public abstract class Plot {
     protected double width, height, centralt; // width and height of parent JPanel
     protected double[] minmaxt;
     protected boolean fixedaxes = false, fixunits = false, autoBandwidth = true;
-    protected double unit = Data.A;     
+    protected int unit = Data.A;     
     protected double leftmargin, rightmargin, bottommargin, topmargin,
                      symbolsize = 0.015, ticklength = 0.02, lineheight=0.05,
                      plotmin, plotmax;

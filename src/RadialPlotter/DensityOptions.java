@@ -20,7 +20,7 @@ public class DensityOptions extends javax.swing.JPanel {
             units.add(this.MaButton);
             this.refresh();
         } catch(Exception e) { 
-            if (Data.debugmode){e.printStackTrace(System.out);}
+            if (Data.DEBUGMODE){e.printStackTrace(System.out);}
         }
     }
 
@@ -525,7 +525,7 @@ public class DensityOptions extends javax.swing.JPanel {
         try {
             prefs.doKDEfill(this.KDEareaCheckbox.isSelected());
         } catch (Exception ex) {
-            if (Data.debugmode){ex.printStackTrace(System.out);}
+            if (Data.DEBUGMODE){ex.printStackTrace(System.out);}
         }
     }//GEN-LAST:event_KDEareaCheckboxActionPerformed
 
@@ -533,7 +533,7 @@ public class DensityOptions extends javax.swing.JPanel {
         try {
             prefs.doPDPfill(this.PDPareaCheckbox.isSelected());
         } catch (Exception ex) {
-            if (Data.debugmode){ex.printStackTrace(System.out);}
+            if (Data.DEBUGMODE){ex.printStackTrace(System.out);}
         }
     }//GEN-LAST:event_PDPareaCheckboxActionPerformed
 
@@ -541,7 +541,7 @@ public class DensityOptions extends javax.swing.JPanel {
         try {
             prefs.dohistfill(this.HistAreaCheckbox.isSelected());
         } catch (Exception ex) {
-            if (Data.debugmode){ex.printStackTrace(System.out);}
+            if (Data.DEBUGMODE){ex.printStackTrace(System.out);}
         }
     }//GEN-LAST:event_HistAreaCheckboxActionPerformed
 
@@ -550,7 +550,7 @@ public class DensityOptions extends javax.swing.JPanel {
             prefs.dotickstroke(this.TicksLineCheckbox.isSelected());
             this.showBellHeight(prefs.dotickstroke()|prefs.dobellstroke());
         } catch (Exception ex) {
-            if (Data.debugmode){ex.printStackTrace(System.out);}
+            if (Data.DEBUGMODE){ex.printStackTrace(System.out);}
         }
     }//GEN-LAST:event_TicksLineCheckboxActionPerformed
 
@@ -588,7 +588,7 @@ public class DensityOptions extends javax.swing.JPanel {
             }
             plot.markers = this.MarkerBox.getText();
         } catch (Exception ex) {
-            if (Data.debugmode){
+            if (Data.DEBUGMODE){
                 ex.printStackTrace(System.out);
             }
         } finally {
@@ -603,7 +603,7 @@ public class DensityOptions extends javax.swing.JPanel {
             this.plot.refresh(plot.data);
             this.refresh();
         } catch (Exception ex) {
-            if (Data.debugmode){
+            if (Data.DEBUGMODE){
                 ex.printStackTrace(System.out);
             }
         }
@@ -613,7 +613,7 @@ public class DensityOptions extends javax.swing.JPanel {
         try {
             prefs.dopointstroke(this.PointsLineCheckbox.isSelected());
         } catch (Exception ex) {
-            if (Data.debugmode){ex.printStackTrace(System.out);}
+            if (Data.DEBUGMODE){ex.printStackTrace(System.out);}
         }
     }//GEN-LAST:event_PointsLineCheckboxActionPerformed
 
@@ -621,7 +621,7 @@ public class DensityOptions extends javax.swing.JPanel {
         try {
             prefs.doKDEstroke(this.KDElineCheckbox.isSelected());
         } catch (Exception ex) {
-            if (Data.debugmode){ex.printStackTrace(System.out);}
+            if (Data.DEBUGMODE){ex.printStackTrace(System.out);}
         }
     }//GEN-LAST:event_KDElineCheckboxActionPerformed
 
@@ -629,7 +629,7 @@ public class DensityOptions extends javax.swing.JPanel {
         try {
             prefs.doPDPstroke(this.PDPlineCheckbox.isSelected());
         } catch (Exception ex) {
-            if (Data.debugmode){ex.printStackTrace(System.out);}
+            if (Data.DEBUGMODE){ex.printStackTrace(System.out);}
         }
     }//GEN-LAST:event_PDPlineCheckboxActionPerformed
 
@@ -637,7 +637,7 @@ public class DensityOptions extends javax.swing.JPanel {
         try {
             prefs.dohiststroke(this.HistLineCheckbox.isSelected());
         } catch (Exception ex) {
-            if (Data.debugmode){ex.printStackTrace(System.out);}
+            if (Data.DEBUGMODE){ex.printStackTrace(System.out);}
         }
     }//GEN-LAST:event_HistLineCheckboxActionPerformed
 
@@ -651,7 +651,7 @@ public class DensityOptions extends javax.swing.JPanel {
             this.showAgeBounds();
             plot.fixUnits(true);
         } catch (Exception e){
-            if (Data.debugmode){e.printStackTrace(System.out);}
+            if (Data.DEBUGMODE){e.printStackTrace(System.out);}
         }
 }//GEN-LAST:event_aButtonActionPerformed
 
@@ -661,7 +661,7 @@ public class DensityOptions extends javax.swing.JPanel {
             this.showAgeBounds();
             plot.fixUnits(true);
         } catch (Exception e){
-            if (Data.debugmode){e.printStackTrace(System.out);}
+            if (Data.DEBUGMODE){e.printStackTrace(System.out);}
         }
 }//GEN-LAST:event_kaButtonActionPerformed
 
@@ -671,7 +671,7 @@ public class DensityOptions extends javax.swing.JPanel {
             this.showAgeBounds();
             plot.fixUnits(true);
         } catch (Exception e){
-            if (Data.debugmode){e.printStackTrace(System.out);}
+            if (Data.DEBUGMODE){e.printStackTrace(System.out);}
         }
 }//GEN-LAST:event_MaButtonActionPerformed
 
@@ -680,7 +680,7 @@ public class DensityOptions extends javax.swing.JPanel {
             prefs.dobellstroke(this.BellsLineCheckBox.isSelected());
             this.showBellHeight(prefs.dotickstroke()|prefs.dobellstroke());
         } catch (Exception ex) {
-            if (Data.debugmode){ex.printStackTrace(System.out);}
+            if (Data.DEBUGMODE){ex.printStackTrace(System.out);}
         }
     }//GEN-LAST:event_BellsLineCheckBoxActionPerformed
 
@@ -688,7 +688,7 @@ public class DensityOptions extends javax.swing.JPanel {
         try {
             prefs.dopointsfill(this.PointsAreaCheckbox.isSelected());
         } catch (Exception ex) {
-            if (Data.debugmode){ex.printStackTrace(System.out);}
+            if (Data.DEBUGMODE){ex.printStackTrace(System.out);}
         }
     }//GEN-LAST:event_PointsAreaCheckboxActionPerformed
 
@@ -698,7 +698,7 @@ public class DensityOptions extends javax.swing.JPanel {
             prefs.adaptive(doIt);
             if (!plot.autoBinWidth) plot.setBinWidth();
         } catch (Exception ex) {
-            if (Data.debugmode){ex.printStackTrace(System.out);}
+            if (Data.DEBUGMODE){ex.printStackTrace(System.out);}
         }        
     }//GEN-LAST:event_adaptiveCheckBoxActionPerformed
 
@@ -706,7 +706,7 @@ public class DensityOptions extends javax.swing.JPanel {
         try {
             prefs.saveprefs(this.SavePrefsCheckBox.isSelected());
         } catch (Exception ex) {
-            if (Data.debugmode){ex.printStackTrace(System.out);}
+            if (Data.DEBUGMODE){ex.printStackTrace(System.out);}
         }  
     }//GEN-LAST:event_SavePrefsCheckBoxActionPerformed
 
@@ -716,7 +716,7 @@ public class DensityOptions extends javax.swing.JPanel {
             prefs.epanechnikov(doIt);
             if (!plot.autoBinWidth) plot.setBinWidth();
         } catch (Exception ex) {
-            if (Data.debugmode){ex.printStackTrace(System.out);}
+            if (Data.DEBUGMODE){ex.printStackTrace(System.out);}
         }     
     }//GEN-LAST:event_epanechnikovCheckBoxActionPerformed
 
@@ -727,7 +727,7 @@ public class DensityOptions extends javax.swing.JPanel {
             if (!plot.autoBinWidth) plot.setBinWidth();
             this.AreaTextBox.setEditable(doIt);
         } catch (Exception ex) {
-            if (Data.debugmode){ex.printStackTrace(System.out);}
+            if (Data.DEBUGMODE){ex.printStackTrace(System.out);}
         }  
     }//GEN-LAST:event_normaliseCheckBoxActionPerformed
 

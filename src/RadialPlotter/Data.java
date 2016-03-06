@@ -488,9 +488,9 @@ public abstract class Data implements Iterator, Iterable {
    protected int ii; // iterator index
    protected double z0 = 0.0, offset = 0.0;
    static final double NAN = -999.9, MINT = Double.MAX_VALUE, MAXT = -Double.MAX_VALUE;
-   static final boolean debugmode = false;  
+   static final boolean DEBUGMODE = false;  
    protected Preferences preferences;
    protected int numpeaks = 0;
-   final static double GA = 1e9, MA = 1e6, KA = 1e3, A = 1;
+   final static int GA = 1000000000, MA = 1000000, KA = 1000, A = 1;
 
 }

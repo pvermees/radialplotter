@@ -8,6 +8,10 @@ public class LineNumberTable extends JTable {
     public LineNumberTable(JTable table) {
         super();
         mainTable = table;
+        this.setup();
+    }
+
+    private void setup(){
         setAutoCreateColumnsFromModel( false );
         setModel( mainTable.getModel() );
         setSelectionModel( mainTable.getSelectionModel() );
@@ -20,7 +24,7 @@ public class LineNumberTable extends JTable {
         getColumnModel().getColumn(0).setPreferredWidth(50);
         setPreferredScrollableViewportSize(getPreferredSize());
     }
-
+    
     public JTable getMainTable() {
         return mainTable;
     }
@@ -34,7 +38,7 @@ public class LineNumberTable extends JTable {
     @Override
     public Object getValueAt(int row, int column)
     {
-            return new Integer(row + 1);
+            return row + 1;
     }
  
     @Override

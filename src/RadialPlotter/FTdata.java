@@ -11,10 +11,14 @@ public class FTdata extends Data implements Iterator, Iterable {
     
     public FTdata(String fn, Preferences preferences) {
         super(fn, preferences);
+        this.read();
+    }
+    
+    private void read(){
         try {
             this.readData();
         } catch (Exception e){
-            if (debugmode){e.printStackTrace(System.out);}
+            if (DEBUGMODE){e.printStackTrace(System.out);}
         }
     }
     
@@ -50,7 +54,7 @@ public class FTdata extends Data implements Iterator, Iterable {
             }
             super.readBody(br);
         } catch (Exception e){
-            if (debugmode){e.printStackTrace(System.out);}
+            if (DEBUGMODE){e.printStackTrace(System.out);}
         }
     }
 
@@ -64,7 +68,7 @@ public class FTdata extends Data implements Iterator, Iterable {
             out.write(this.getRhoD() + "," + this.getRhoD_Err() + nl);
             super.writeBody(out);
         } catch (Exception e) {
-            if (debugmode){e.printStackTrace(System.out);}
+            if (DEBUGMODE){e.printStackTrace(System.out);}
         }
     }
     
@@ -98,7 +102,7 @@ public class FTdata extends Data implements Iterator, Iterable {
                     num += zj/(sigmaj*sigmaj);
                     denom += 1/(sigmaj*sigmaj);
                 } else if (preferences.logarithmic()){
-                    z.add(ToolBox.log(this.getZeta()*FT.g*FT.LAMBDA*this.getRhoD()*nsj/nij));
+                    z.add(ToolBox.log(this.getZeta()*FT.G*FT.LAMBDA*this.getRhoD()*nsj/nij));
                     sigma.add(Math.sqrt(1/nsj + 1/nij));
                 } else if (preferences.arcsin()){
                     z.add(Math.asin(Math.sqrt((nsj+3/8)/(nsj+nij+3/4))));
@@ -112,7 +116,7 @@ public class FTdata extends Data implements Iterator, Iterable {
                 }
             } else if (preferences.logarithmic()){
                 if(!fixedAxes){
-                    this.set_z0(ToolBox.log(this.getZeta()*FT.g*FT.LAMBDA*this.getRhoD()*nsplus/niplus));
+                    this.set_z0(ToolBox.log(this.getZeta()*FT.G*FT.LAMBDA*this.getRhoD()*nsplus/niplus));
                 }
             } else if (preferences.arcsin()){
                 if(!fixedAxes){
@@ -126,7 +130,7 @@ public class FTdata extends Data implements Iterator, Iterable {
                 radialY.add(rxry[1]);
             }
         } catch (Exception e){
-            if (debugmode){e.printStackTrace(System.out);}
+            if (DEBUGMODE){e.printStackTrace(System.out);}
         }
     }
     
@@ -156,7 +160,7 @@ public class FTdata extends Data implements Iterator, Iterable {
             t = z;
             return t;
         } else if (preferences.logarithmic()){
-            NsNi = Math.exp(z)/(this.getZeta()*FT.g*FT.LAMBDA*this.getRhoD());
+            NsNi = Math.exp(z)/(this.getZeta()*FT.G*FT.LAMBDA*this.getRhoD());
         } else if (preferences.arcsin()){
             NsNi = Math.sin(z)*Math.sin(z)/(1-Math.sin(z)*Math.sin(z));
         }
@@ -172,7 +176,7 @@ public class FTdata extends Data implements Iterator, Iterable {
         } else if (preferences.logarithmic()){
             zout = ToolBox.log(Math.exp(FT.LAMBDA*t) - 1);
         } else if (preferences.arcsin()){
-            zout = Math.asin(1/Math.sqrt(1 + FT.LAMBDA*this.getZeta()*FT.g*this.getRhoD() /
+            zout = Math.asin(1/Math.sqrt(1 + FT.LAMBDA*this.getZeta()*FT.G*this.getRhoD() /
                    (Math.exp(FT.LAMBDA*t) - 1)));
         }
         return zout;

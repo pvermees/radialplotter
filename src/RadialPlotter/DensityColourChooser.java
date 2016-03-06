@@ -15,21 +15,24 @@ public class DensityColourChooser extends JPanel
     public DensityColourChooser(DensityPlot plot) throws Exception {
         super(new BorderLayout());
         this.plot = plot;
-
+        
+        this.addStuff();
+    }
+    
+    private void addStuff() throws Exception{
         // Set up the banner at the top of the window
-        banner = new DensityColourBanner(plot);
+        this.banner = new DensityColourBanner(this.plot);
 
         //Set up color chooser for setting text color
-        tcc = new JColorChooser(banner.getBackground());
+        this.tcc = new JColorChooser(banner.getBackground());
         tcc.getSelectionModel().addChangeListener(this);
         tcc.setBorder(BorderFactory.createTitledBorder("Choose Colour"));
         tcc.setPreviewPanel(new JPanel());
 
-        buttons = new DensityColourButtons(banner);
-
-        add(banner, BorderLayout.PAGE_START);
-        add(tcc, BorderLayout.CENTER);
-        add(buttons, BorderLayout.PAGE_END);
+        buttons = new DensityColourButtons(banner);        
+        this.add(banner, BorderLayout.PAGE_START);
+        this.add(tcc, BorderLayout.CENTER);
+        this.add(buttons, BorderLayout.PAGE_END);
     }
 
     @Override
@@ -54,7 +57,7 @@ public class DensityColourChooser extends JPanel
                 banner.setPointsForeground(newColor);
             }
         } catch (Exception ex){
-            if (Data.debugmode){ex.printStackTrace(System.out);}
+            if (Data.DEBUGMODE){ex.printStackTrace(System.out);}
         }
     }
 

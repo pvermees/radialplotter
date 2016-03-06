@@ -223,7 +223,7 @@ public final class BinomFit {
         cov = covariance(k, n, p, pi, a, b);
         return LL; // add arbitrary constant to getW a positive number
         } catch (Exception e){
-            if (Data.debugmode){ e.printStackTrace(System.out); }
+            if (Data.DEBUGMODE){ e.printStackTrace(System.out); }
             return -Double.MAX_VALUE;
         }
     }

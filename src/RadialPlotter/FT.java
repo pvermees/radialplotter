@@ -6,7 +6,7 @@ import java.util.Iterator;
 class FT{
 
     static double getFTage(double zeta, double rhoD, double Ns, double Ni) throws Exception {
-        return (1/LAMBDA) * ToolBox.log(1 + LAMBDA*(Ns/Ni)*g*rhoD*zeta);
+        return (1/LAMBDA) * ToolBox.log(1 + LAMBDA*(Ns/Ni)*G*rhoD*zeta);
     }
     
     /* returns the *relative* error */
@@ -53,7 +53,7 @@ class FT{
     
     /* returns z = log(Ns/Ni) from age t*/
     public static double getz(FTdata data, double t) throws Exception {
-        return ToolBox.log((Math.exp(LAMBDA*t)-1)/(LAMBDA*g*data.getRhoD()*data.getZeta()));
+        return ToolBox.log((Math.exp(LAMBDA*t)-1)/(LAMBDA*G*data.getRhoD()*data.getZeta()));
     }
     
     public static double getPX2(FTdata data) throws Exception {
@@ -108,6 +108,6 @@ class FT{
     }
     
     final static double LAMBDA = 1.55125e-10;
-    final static double g = 0.5;
+    final static double G = 0.5;
 
 }

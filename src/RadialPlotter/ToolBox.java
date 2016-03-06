@@ -171,9 +171,9 @@ public class ToolBox {
             }
             if (exit) System.exit(0);
         } catch (URISyntaxException e) {
-            if (Data.debugmode){e.printStackTrace(System.out);}
+            if (Data.DEBUGMODE){e.printStackTrace(System.out);}
         } catch (IOException e) {
-            if (Data.debugmode){e.printStackTrace(System.out);}
+            if (Data.DEBUGMODE){e.printStackTrace(System.out);}
         }
     }
     

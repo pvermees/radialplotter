@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import java.awt.datatransfer.*;
+import java.io.IOException;
 import java.util.*;
 /**
  * ExcelAdapter enables Copy-Paste Clipboard functionality on JTables.
@@ -78,8 +79,8 @@ public void setJTable(JTable jTable1) {this.jTable1=jTable1;}
          {
             for (int j=0;j<numcols;j++)
             {
-sbf.append(jTable1.getValueAt(rowsselected[i],colsselected[j]));
-               if (j<numcols-1) sbf.append("\t");
+                sbf.append(jTable1.getValueAt(rowsselected[i],colsselected[j]));
+                if (j<numcols-1) sbf.append("\t");
             }
             sbf.append("\r\n");
          }
@@ -112,7 +113,9 @@ sbf.append(jTable1.getValueAt(rowsselected[i],colsselected[j]));
                }
             }
          }
-         catch(Exception ex){ex.printStackTrace(System.out);}
+         catch(UnsupportedFlavorException ex){ex.printStackTrace(System.out);} catch (IOException ex) {
+             ex.printStackTrace(System.out);
+          }
       }
    }
 }

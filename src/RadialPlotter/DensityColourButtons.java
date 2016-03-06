@@ -61,7 +61,7 @@ public class DensityColourButtons extends javax.swing.JPanel {
         try {
             banner.setDefaults();
         } catch (Exception ex) {
-            if (Data.debugmode){ex.printStackTrace(System.out);}
+            if (Data.DEBUGMODE){ex.printStackTrace(System.out);}
         }
     }//GEN-LAST:event_DefaultsButtonActionPerformed
 

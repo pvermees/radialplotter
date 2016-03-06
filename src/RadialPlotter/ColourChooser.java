@@ -49,10 +49,14 @@ public class ColourChooser extends JPanel
         tcc.setPreviewPanel(new JPanel()); // remove preview pane
         this.removePanes();
         
-        add(bannerPanel, BorderLayout.PAGE_START);
-        add(tcc, BorderLayout.CENTER);
-        add(buttons, BorderLayout.PAGE_END);
+        this.furtherMakeUp(bannerPanel);
 
+    }
+    
+    private void furtherMakeUp(JPanel bannerPanel){
+        this.add(bannerPanel, BorderLayout.PAGE_START);
+        this.add(tcc, BorderLayout.CENTER);
+        this.add(buttons, BorderLayout.PAGE_END);
     }
     
     private void removePanes() {
@@ -74,7 +78,7 @@ public class ColourChooser extends JPanel
         try {
             this.refresh(tcc.getColor());
         } catch (Exception ex){
-            if (Data.debugmode){ex.printStackTrace(System.out);}
+            if (Data.DEBUGMODE){ex.printStackTrace(System.out);}
         }
     }
     

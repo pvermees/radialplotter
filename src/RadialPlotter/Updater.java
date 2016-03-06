@@ -24,7 +24,7 @@ public class Updater {
                 showUpdateMessage(newversion, prefs);
             }
         } catch (Exception e) {
-            if (Data.debugmode) {e.printStackTrace(System.out);}
+            if (Data.DEBUGMODE) {e.printStackTrace(System.out);}
         }
     }
     
@@ -52,7 +52,7 @@ public class Updater {
     }
     
     public static String getLatestVersion() throws Exception {
-        String data = getData(versionURL),
+        String data = getData(VERSIONURL),
                label = Main.DENSITYPLOTTER ? "densityplotter" : "radialplotter",
                open = "[" + label + "]",
                close = "[/" + label + "]";
@@ -73,6 +73,6 @@ public class Updater {
         return buffer.toString();
     }
     
-    static final String versionURL = "http://ucl.ac.uk/~ucfbpve/software/version.html";
+    static final String VERSIONURL = "http://ucl.ac.uk/~ucfbpve/software/version.html";
     
 }

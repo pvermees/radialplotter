@@ -33,7 +33,7 @@ public final class DensityColourBanner extends javax.swing.JPanel {
         setHistForeground(this.prefs.histstrokecolour());
         setPointsBackground(this.prefs.pointsfillcolour());
         setPointsForeground(this.prefs.pointstrokecolour());
-        setPreferredSize(new Dimension(500, 86));
+        this.setSize();
     }
 
     public void setDefaults() throws Exception{
@@ -47,77 +47,81 @@ public final class DensityColourBanner extends javax.swing.JPanel {
         setPointsForeground(Preferences.POINTSLINECOLOUR);
     }
 
-  public boolean doKDEarea() {
-    return this.KDEareaButton.isSelected();
-  }
+    private void setSize(){
+        setPreferredSize(new Dimension(500, 86));
+    }    
+    
+      public boolean doKDEarea() {
+        return this.KDEareaButton.isSelected();
+      }
 
-  public boolean doKDEline() {
-    return this.KDElineButton.isSelected();
-  }
+      public boolean doKDEline() {
+        return this.KDElineButton.isSelected();
+      }
 
-  public boolean doPDParea() {
-    return this.PDPareaButton.isSelected();
-  }
+      public boolean doPDParea() {
+        return this.PDPareaButton.isSelected();
+      }
 
-  public boolean doPDPline() {
-    return this.PDPlineButton.isSelected();
-  }
+      public boolean doPDPline() {
+        return this.PDPlineButton.isSelected();
+      }
 
-  public boolean doHistArea() {
-    return this.HistAreaButton.isSelected();
-  }
+      public boolean doHistArea() {
+        return this.HistAreaButton.isSelected();
+      }
 
-  public boolean doHistLine() {
-    return this.HistLineButton.isSelected();
-  }
+      public boolean doHistLine() {
+        return this.HistLineButton.isSelected();
+      }
 
-  public boolean doPointsArea() {
-    return this.PointsAreaButton.isSelected();
-  }
+      public boolean doPointsArea() {
+        return this.PointsAreaButton.isSelected();
+      }
 
-  public boolean doPointsLine() {
-    return this.PointsLineButton.isSelected();
-  }
+      public boolean doPointsLine() {
+        return this.PointsLineButton.isSelected();
+      }
 
-  public void setKDEbackground(Color colour) throws Exception {
-    this.prefs.KDEfillcolour(colour);
-    this.KDEpreview.setBackground(colour);
-  }
+      public void setKDEbackground(Color colour) throws Exception {
+        this.prefs.KDEfillcolour(colour);
+        this.KDEpreview.setBackground(colour);
+      }
 
-  public void setKDEforeground(Color colour) throws Exception {
-    this.prefs.KDEstrokecolour(colour);
-    this.KDEpreview.setBorder(BorderFactory.createLineBorder(colour, 2));
-  }
+      public void setKDEforeground(Color colour) throws Exception {
+        this.prefs.KDEstrokecolour(colour);
+        this.KDEpreview.setBorder(BorderFactory.createLineBorder(colour, 2));
+      }
 
-  public void setPDPbackground(Color colour) throws Exception {
-    this.prefs.PDPfillcolour(colour);
-    this.PDPpreview.setBackground(colour);
-  }
+      public void setPDPbackground(Color colour) throws Exception {
+        this.prefs.PDPfillcolour(colour);
+        this.PDPpreview.setBackground(colour);
+      }
 
-  public void setPDPforeground(Color colour) throws Exception {
-    this.prefs.PDPstrokecolour(colour);
-    this.PDPpreview.setBorder(BorderFactory.createLineBorder(colour, 2));
-  }
+      public void setPDPforeground(Color colour) throws Exception {
+        this.prefs.PDPstrokecolour(colour);
+        this.PDPpreview.setBorder(BorderFactory.createLineBorder(colour, 2));
+      }
 
-  public void setHistBackground(Color colour) throws Exception {
-    this.prefs.histfillcolour(colour);
-    this.HistPreview.setBackground(colour);
-  }
+      public void setHistBackground(Color colour) throws Exception {
+        this.prefs.histfillcolour(colour);
+        this.HistPreview.setBackground(colour);
+      }
 
-  public void setHistForeground(Color colour) throws Exception {
-    this.prefs.histstrokecolour(colour);
-    this.HistPreview.setBorder(BorderFactory.createLineBorder(colour, 2));
-  }
+      public void setHistForeground(Color colour) throws Exception {
+        this.prefs.histstrokecolour(colour);
+        this.HistPreview.setBorder(BorderFactory.createLineBorder(colour, 2));
+      }
 
-  public void setPointsBackground(Color colour) throws Exception {
-    this.prefs.pointsfillcolour(colour);
-    this.PointsPreview.setBackground(colour);
-  }
+      public void setPointsBackground(Color colour) throws Exception {
+        this.prefs.pointsfillcolour(colour);
+        this.PointsPreview.setBackground(colour);
+      }
 
-  public void setPointsForeground(Color colour) throws Exception {
-    this.prefs.pointstrokecolour(colour);
-    this.PointsPreview.setBorder(BorderFactory.createLineBorder(colour, 2));
-  }
+      public void setPointsForeground(Color colour) throws Exception {
+        this.prefs.pointstrokecolour(colour);
+        this.PointsPreview.setBorder(BorderFactory.createLineBorder(colour, 2));
+      }
 
     public JPanel getPreview(){
         return KDEpreview;

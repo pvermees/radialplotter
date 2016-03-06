@@ -77,7 +77,7 @@ private void addFrameActions() {
         plotframe.plotpanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(closeStroke, "close");
         plotframe.plotpanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(openStroke, "open");
     } catch (Exception e) {
-        if (Data.debugmode) {e.printStackTrace(System.out);}
+        if (Data.DEBUGMODE) {e.printStackTrace(System.out);}
     }
 }    
 
@@ -116,7 +116,7 @@ private void addFrameActions() {
                     }
                 } catch (NumberFormatException e) {
                     System.out.println("Incorrect input arguments");
-                    if (Data.debugmode){e.printStackTrace(System.out);}
+                    if (Data.DEBUGMODE){e.printStackTrace(System.out);}
                 }
             }
             // process the input parameters
@@ -151,7 +151,7 @@ private void addFrameActions() {
                 quit();
             }
         } catch (Exception e) {
-            if (Data.debugmode){e.printStackTrace(System.out);}
+            if (Data.DEBUGMODE){e.printStackTrace(System.out);}
         }
     }
     
@@ -187,7 +187,7 @@ private void addFrameActions() {
           UIManager.setLookAndFeel(UIManager. 
             getSystemLookAndFeelClassName()); 
         } catch(Exception e) { 
-            if (Data.debugmode){e.printStackTrace(System.out);}
+            if (Data.DEBUGMODE){e.printStackTrace(System.out);}
         }
     }
     
@@ -234,7 +234,7 @@ private void addFrameActions() {
             this.setSize(400, 500);
             fc = this.initSavePlotFileChooser();
         } catch (Exception e){
-            if (Data.debugmode){e.printStackTrace(System.out);}
+            if (Data.DEBUGMODE){e.printStackTrace(System.out);}
         }
     }
 
@@ -246,7 +246,7 @@ private void addFrameActions() {
                 this.setOtherInput();
             }
         } catch (Exception e){
-            if (Data.debugmode){e.printStackTrace(System.out);}
+            if (Data.DEBUGMODE){e.printStackTrace(System.out);}
         }
     }
 
@@ -273,7 +273,7 @@ private void addFrameActions() {
             this.LogarithmicRadioButton.setSelected(data.preferences.logarithmic());
             this.ArcsinRadioButton.setSelected(data.preferences.arcsin());
         } catch (Exception e){
-            if (Data.debugmode){e.printStackTrace(System.out);}
+            if (Data.DEBUGMODE){e.printStackTrace(System.out);}
         }
     }
     
@@ -291,7 +291,7 @@ private void addFrameActions() {
                 this.setZlabel(data.preferences.zlabel());
             }
         } catch (Exception e){
-            if (Data.debugmode){e.printStackTrace(System.out);}
+            if (Data.DEBUGMODE){e.printStackTrace(System.out);}
         }
     }
     
@@ -1786,7 +1786,7 @@ private void addFrameActions() {
             plotframe.repaint();
             plotframe.setVisible(true);
         } catch (Exception e){
-            if (Data.debugmode){e.printStackTrace(System.out);}
+            if (Data.DEBUGMODE){e.printStackTrace(System.out);}
         }
     }
 
@@ -1801,11 +1801,11 @@ private void addFrameActions() {
                 clearDisplay();
                 loadFile(filename);
                 } catch (Exception e){
-                    if (Data.debugmode){e.printStackTrace(System.out);}
+                    if (Data.DEBUGMODE){e.printStackTrace(System.out);}
                 }
             }
         } catch (HeadlessException e){
-            if (Data.debugmode){e.printStackTrace(System.out);}
+            if (Data.DEBUGMODE){e.printStackTrace(System.out);}
         }
 }//GEN-LAST:event_OpenMenuItemActionPerformed
 
@@ -1828,7 +1828,7 @@ private void addFrameActions() {
             readDataToTable();
         } catch (Exception e){
             System.out.println("Please specify a valid input file.");
-            if (Data.debugmode){e.printStackTrace(System.out);}
+            if (Data.DEBUGMODE){e.printStackTrace(System.out);}
         }
     }
 
@@ -1852,7 +1852,7 @@ private void addFrameActions() {
             }
             noPeaks.setSelected(true);
         } catch (Exception e){
-            if (Data.debugmode){e.printStackTrace(System.out);}
+            if (Data.DEBUGMODE){e.printStackTrace(System.out);}
         }
     }
     
@@ -1863,7 +1863,7 @@ private void addFrameActions() {
             plotframe.refresh(data);
             OpenRadialPlotFrame();
         } catch (Exception e){
-            if (Data.debugmode){e.printStackTrace(System.out);}
+            if (Data.DEBUGMODE){e.printStackTrace(System.out);}
         }
     }//GEN-LAST:event_PlotButtonActionPerformed
 
@@ -1871,7 +1871,7 @@ private void addFrameActions() {
         try {
             clipboard.actionPerformed(evt);
         } catch (Exception e){
-            if (Data.debugmode){e.printStackTrace(System.out);}
+            if (Data.DEBUGMODE){e.printStackTrace(System.out);}
         }
     }//GEN-LAST:event_CopyMenuItemActionPerformed
 
@@ -1879,7 +1879,7 @@ private void addFrameActions() {
         try {
             clipboard.actionPerformed(evt);
         } catch (Exception e){
-            if (Data.debugmode){e.printStackTrace(System.out);}
+            if (Data.DEBUGMODE){e.printStackTrace(System.out);}
         }
     }//GEN-LAST:event_PasteMenuItemActionPerformed
 
@@ -1918,7 +1918,7 @@ private void addFrameActions() {
                 }
             }
         } catch (Exception e){
-            if (Data.debugmode){e.printStackTrace(System.out);}
+            if (Data.DEBUGMODE){e.printStackTrace(System.out);}
         }
     }//GEN-LAST:event_SavePlotMenuItemActionPerformed
     
@@ -1926,7 +1926,7 @@ private void addFrameActions() {
         try {
             data.setSampleName(((JTextField)evt.getSource()).getText());
         } catch (Exception e){
-            if (Data.debugmode){e.printStackTrace(System.out);}
+            if (Data.DEBUGMODE){e.printStackTrace(System.out);}
         }
 }//GEN-LAST:event_samplenameFocusHandler
 
@@ -1934,7 +1934,7 @@ private void addFrameActions() {
         try {
             data.setSampleName(((JTextField)evt.getSource()).getText());
         } catch (Exception e){
-            if (Data.debugmode){e.printStackTrace(System.out);}
+            if (Data.DEBUGMODE){e.printStackTrace(System.out);}
         }
 }//GEN-LAST:event_samplenameEnterHandler
 
@@ -1942,7 +1942,7 @@ private void addFrameActions() {
         try {
             this.ZetaDoseRateHandler(evt);
         } catch (Exception e){
-            if (Data.debugmode){e.printStackTrace(System.out);}
+            if (Data.DEBUGMODE){e.printStackTrace(System.out);}
         }
 }//GEN-LAST:event_ZetaDoseRateEnterHandler
 
@@ -1950,7 +1950,7 @@ private void addFrameActions() {
         try {
             this.ZetaDoseRateHandler(evt);
         } catch (Exception e){
-            if (Data.debugmode){e.printStackTrace(System.out);}
+            if (Data.DEBUGMODE){e.printStackTrace(System.out);}
         }
 }//GEN-LAST:event_ZetaDoseRateFocusHandler
 
@@ -1966,7 +1966,7 @@ private void addFrameActions() {
         try {
             this.zetaErrHandler(evt);
         } catch (Exception e){
-            if (Data.debugmode){e.printStackTrace(System.out);}
+            if (Data.DEBUGMODE){e.printStackTrace(System.out);}
         }
     }//GEN-LAST:event_zetaErrEnterHandler
 
@@ -1974,7 +1974,7 @@ private void addFrameActions() {
         try {
             this.zetaErrHandler(evt);
         } catch (Exception e){
-            if (Data.debugmode){e.printStackTrace(System.out);}
+            if (Data.DEBUGMODE){e.printStackTrace(System.out);}
         }
     }//GEN-LAST:event_zetaErrFocusHandler
 
@@ -1982,7 +1982,7 @@ private void addFrameActions() {
         try {
             ((FTdata)data).setZeta_Err(Double.parseDouble(((JTextField)evt.getSource()).getText()));
         } catch (NumberFormatException e){
-            if (Data.debugmode){e.printStackTrace(System.out);}
+            if (Data.DEBUGMODE){e.printStackTrace(System.out);}
         }        
     }
     
@@ -1990,7 +1990,7 @@ private void addFrameActions() {
         try {
             this.rhoDhandler(evt);
         } catch (Exception e){
-            if (Data.debugmode){e.printStackTrace(System.out);}
+            if (Data.DEBUGMODE){e.printStackTrace(System.out);}
         }
     }//GEN-LAST:event_rhoDenterHandler
 
@@ -1998,7 +1998,7 @@ private void addFrameActions() {
         try {
             this.rhoDhandler(evt);
         } catch (Exception e){
-            if (Data.debugmode){e.printStackTrace(System.out);}
+            if (Data.DEBUGMODE){e.printStackTrace(System.out);}
         }
     }//GEN-LAST:event_rhoDfocusHandler
 
@@ -2006,7 +2006,7 @@ private void addFrameActions() {
         try {
             ((FTdata)data).setRhoD(Double.parseDouble(((JTextField)evt.getSource()).getText()));
         } catch (NumberFormatException e){
-            if (Data.debugmode){e.printStackTrace(System.out);}
+            if (Data.DEBUGMODE){e.printStackTrace(System.out);}
         }
     }
     
@@ -2014,7 +2014,7 @@ private void addFrameActions() {
         try {
             this.rhoDerrHandler(evt);
         } catch (Exception e){
-            if (Data.debugmode){e.printStackTrace(System.out);}
+            if (Data.DEBUGMODE){e.printStackTrace(System.out);}
         }
     }//GEN-LAST:event_rhoDerrEnterHandler
 
@@ -2022,7 +2022,7 @@ private void addFrameActions() {
         try {
             this.rhoDerrHandler(evt);
         } catch (Exception e){
-            if (Data.debugmode){e.printStackTrace(System.out);}
+            if (Data.DEBUGMODE){e.printStackTrace(System.out);}
         }
     }//GEN-LAST:event_rhoDerrFocusHandler
 
@@ -2030,7 +2030,7 @@ private void addFrameActions() {
         try {
             ((FTdata)data).setRhoD_Err(Double.parseDouble(((JTextField)evt.getSource()).getText()));
         } catch (NumberFormatException e){
-            if (Data.debugmode){e.printStackTrace(System.out);}
+            if (Data.DEBUGMODE){e.printStackTrace(System.out);}
         }
     }
     
@@ -2064,7 +2064,7 @@ private void addFrameActions() {
                 data.writeOutput(filepath);
             }
         } catch (Exception e){
-            if (Data.debugmode){e.printStackTrace(System.out);}
+            if (Data.DEBUGMODE){e.printStackTrace(System.out);}
         }
     }//GEN-LAST:event_SaveDataMenuItemActionPerformed
 
@@ -2079,7 +2079,7 @@ private void addFrameActions() {
       }
       System.exit(0);
     } catch (Exception ex) {
-      if (Data.debugmode){ex.printStackTrace(System.out);}
+      if (Data.DEBUGMODE){ex.printStackTrace(System.out);}
       System.exit(1);
     }
   }
@@ -2090,7 +2090,7 @@ private void addFrameActions() {
             data.preferences.sigmalines(false);
             transform(data);
         } catch (Exception e){
-            if (Data.debugmode){e.printStackTrace(System.out);}
+            if (Data.DEBUGMODE){e.printStackTrace(System.out);}
         }
     }//GEN-LAST:event_LinearRadioButtonActionPerformed
 
@@ -2099,7 +2099,7 @@ private void addFrameActions() {
             data.preferences.transformation("logarithmic");
             transform(data);
         } catch (Exception e){
-            if (Data.debugmode){e.printStackTrace(System.out);}
+            if (Data.DEBUGMODE){e.printStackTrace(System.out);}
         }
     }//GEN-LAST:event_LogarithmicRadioButtonActionPerformed
 
@@ -2108,7 +2108,7 @@ private void addFrameActions() {
             data.preferences.transformation("arcsin");
             transform(data);
         } catch (Exception e){
-            if (Data.debugmode){e.printStackTrace(System.out);}
+            if (Data.DEBUGMODE){e.printStackTrace(System.out);}
         }
     }//GEN-LAST:event_ArcsinRadioButtonActionPerformed
 
@@ -2129,7 +2129,7 @@ private void addFrameActions() {
             this.insertRow(r);
             plotframe.getPlotPanel().getRadialPlot().insertEntry(Data.NAN, Data.NAN, Data.NAN, r);
         } catch (Exception e){
-            if (Data.debugmode){e.printStackTrace(System.out);}
+            if (Data.DEBUGMODE){e.printStackTrace(System.out);}
         }
 }//GEN-LAST:event_InsertMenuItemActionPerformed
 
@@ -2148,7 +2148,7 @@ private void addFrameActions() {
             table.removeRow(r);
             plotframe.getPlotPanel().getRadialPlot().removeEntry(r);
         } catch (Exception e){
-            if (Data.debugmode){e.printStackTrace(System.out);}
+            if (Data.DEBUGMODE){e.printStackTrace(System.out);}
         }
     }//GEN-LAST:event_DeleteMenuItemActionPerformed
 
@@ -2160,7 +2160,7 @@ private void addFrameActions() {
                 DensityOptions.createAndShowGUI(this);
             }
         } catch (Exception e){
-            if (Data.debugmode){e.printStackTrace(System.out);}
+            if (Data.DEBUGMODE){e.printStackTrace(System.out);}
         }
     }//GEN-LAST:event_SetAxesMenuItemActionPerformed
     
@@ -2172,7 +2172,7 @@ private void addFrameActions() {
                 DensityColourChooser.createAndShowGUI(plotframe.getPlotPanel().getDensityPlot());
             }
         } catch (Exception e){
-            if (Data.debugmode){e.printStackTrace(System.out);}
+            if (Data.DEBUGMODE){e.printStackTrace(System.out);}
         }
 }//GEN-LAST:event_ColourMenuItemActionPerformed
 
@@ -2183,7 +2183,7 @@ private void addFrameActions() {
             setFissionTrackInput();
             plotframe.plotpanel.densityplot.setDefault();
         } catch (Exception e){
-            if (Data.debugmode){e.printStackTrace(System.out);}
+            if (Data.DEBUGMODE){e.printStackTrace(System.out);}
         }
     }//GEN-LAST:event_FissionTracksRadioButtonActionPerformed
 
@@ -2194,7 +2194,7 @@ private void addFrameActions() {
             setOtherInput();
             plotframe.plotpanel.densityplot.setDefault();
         } catch (Exception e){
-            if (Data.debugmode){e.printStackTrace(System.out);}
+            if (Data.DEBUGMODE){e.printStackTrace(System.out);}
         }
     }//GEN-LAST:event_OtherInputRadioButtonActionPerformed
 
@@ -2256,7 +2256,7 @@ private void addFrameActions() {
             }
             this.setOutput();
         } catch (Exception e){
-            if (Data.debugmode){e.printStackTrace(System.out);}
+            if (Data.DEBUGMODE){e.printStackTrace(System.out);}
         }
     }//GEN-LAST:event_NewMenuItemActionPerformed
 
@@ -2264,7 +2264,7 @@ private void ContentsMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//
     try {
         openHelp();
     } catch (Exception e){
-        if (Data.debugmode){e.printStackTrace(System.out);}
+        if (Data.DEBUGMODE){e.printStackTrace(System.out);}
     }
 }//GEN-LAST:event_ContentsMenuItemActionPerformed
 
@@ -2312,7 +2312,7 @@ private void autoPeaksActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
         }
         binomfit.auto();
     } catch (Exception e) {
-        if (Data.debugmode){e.printStackTrace(System.out);}
+        if (Data.DEBUGMODE){e.printStackTrace(System.out);}
     }
 }//GEN-LAST:event_autoPeaksActionPerformed
 
@@ -2323,7 +2323,7 @@ private void RadialPlotRadioButtonActionPerformed(java.awt.event.ActionEvent evt
         ArcSinTest();
         plotframe.plotpanel.radialRefresh(data);
     } catch (Exception e) {
-        if (Data.debugmode){e.printStackTrace(System.out);}
+        if (Data.DEBUGMODE){e.printStackTrace(System.out);}
     }
 }//GEN-LAST:event_RadialPlotRadioButtonActionPerformed
 
@@ -2333,7 +2333,7 @@ private void DensityPlotRadioButtonActionPerformed(java.awt.event.ActionEvent ev
         this.setOutput();
         plotframe.plotpanel.densityRefresh(data);
     } catch (Exception e) {
-        if (Data.debugmode){e.printStackTrace(System.out);}
+        if (Data.DEBUGMODE){e.printStackTrace(System.out);}
     }
 }//GEN-LAST:event_DensityPlotRadioButtonActionPerformed
 
@@ -2371,7 +2371,7 @@ private void setPeaks(int num){
         binomfit.setNumPeaks(num);
         binomfit.findPeaks(num);
     } catch (Exception e){
-        if (Data.debugmode){e.printStackTrace(System.out);}
+        if (Data.DEBUGMODE){e.printStackTrace(System.out);}
     }
 }
 
@@ -2415,7 +2415,7 @@ private void readDataToTable(){
             i++;
         }
     } catch (Exception e){
-        if (Data.debugmode){e.printStackTrace(System.out);}
+        if (Data.DEBUGMODE){e.printStackTrace(System.out);}
     }
 }
 
@@ -2569,7 +2569,7 @@ public static void main(final String args[]) {
     private JFileChooser fc;
     protected LineNumberTable lineTable;
     static final boolean DENSITYPLOTTER = false;
-    static final String VERSION = "7.4";
+    static final String VERSION = "8.0";
     private String idir = "", odir = "";
     
 }

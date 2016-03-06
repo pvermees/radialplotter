@@ -8,13 +8,17 @@ public class PlotFrame extends javax.swing.JFrame {
      * @param data */
     public PlotFrame(Data data) {
         super("Output");
+        this.setup(data);
+    }
+    
+    private void setup(Data data){
         try {
             this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
             plotpanel = new PlotPanel(data);
             this.add(plotpanel);
             this.pack();
         } catch (Exception e){
-            if (Data.debugmode){e.printStackTrace(System.out);}
+            if (Data.DEBUGMODE){e.printStackTrace(System.out);}
         }
     }
 

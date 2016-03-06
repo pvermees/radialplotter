@@ -11,10 +11,14 @@ public class OtherData extends Data implements Iterator, Iterable {
     
     public OtherData(String fn, Preferences preferences){
         super(fn, preferences);
+        this.read();
+    }
+    
+    private void read(){
         try {
             this.readData();
         } catch (Exception e){
-            if (debugmode){e.printStackTrace(System.out);}
+            if (DEBUGMODE){e.printStackTrace(System.out);}
         }
     }
     

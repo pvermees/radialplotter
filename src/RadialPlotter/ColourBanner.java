@@ -29,7 +29,7 @@ public class ColourBanner extends javax.swing.JPanel {
             super.paintComponent(g);
             this.fillTheBanner(g);
         } catch (Exception e){
-            if (Data.debugmode){e.printStackTrace(System.out);}
+            if (Data.DEBUGMODE){e.printStackTrace(System.out);}
         }
     }
 

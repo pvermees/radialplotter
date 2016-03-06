@@ -9,7 +9,7 @@ public class Newton {
 static double[] solveMuXi(ArrayList<double[]> tst) throws Exception {
     double[] MuXi = new double[2];
     double Mu = 0d, Xi = 0d, dMu;
-    for (int i=0; i<n; i++){
+    for (int i=0; i<N; i++){
         MuXi[0] = Mu;
         MuXi[1] = Xi;
         Mu = solveMu(tst,Xi);
@@ -38,7 +38,7 @@ static double solveXi(ArrayList<double[]> tst, double mu) throws Exception {
     double[] fdf = getfdf(tst,mu,xi);
     // exit with zero if xi=0 has positive slope
     if (fdf[1] > 0){return xi;}
-    for (int i=0; i<n; i++){
+    for (int i=0; i<N; i++){
         fdf = getfdf(tst,mu,xi);
         dxi = fdf[0]/fdf[1];
         xi -= dxi;
@@ -84,6 +84,6 @@ static private boolean doBreak(double ds, double s) throws Exception {
     return out;
 }
 
-private static final int n = 100;
+private static final int N = 100;
 
 }

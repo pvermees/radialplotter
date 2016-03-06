@@ -17,7 +17,7 @@ public class RadialOptions extends javax.swing.JPanel {
             initComponents();
             myInit();
         } catch(Exception e) {
-            if (Data.debugmode){e.printStackTrace(System.out);}
+            if (Data.DEBUGMODE){e.printStackTrace(System.out);}
         }
     }
     
@@ -309,7 +309,7 @@ public class RadialOptions extends javax.swing.JPanel {
             this.setDefaultValues();
             this.showAgeBounds();
         } catch (Exception e){
-            if (Data.debugmode){e.printStackTrace(System.out);}
+            if (Data.DEBUGMODE){e.printStackTrace(System.out);}
         }
     }//GEN-LAST:event_DefaultButtonActionPerformed
 
@@ -319,7 +319,7 @@ public class RadialOptions extends javax.swing.JPanel {
             this.showAgeBounds();
             plot.fixUnits(true);
         } catch (Exception e){
-            if (Data.debugmode){e.printStackTrace(System.out);}
+            if (Data.DEBUGMODE){e.printStackTrace(System.out);}
         }
     }//GEN-LAST:event_kaButtonActionPerformed
 
@@ -329,7 +329,7 @@ public class RadialOptions extends javax.swing.JPanel {
             this.showAgeBounds();
             plot.fixUnits(true);
         } catch (Exception e){
-            if (Data.debugmode){e.printStackTrace(System.out);}
+            if (Data.DEBUGMODE){e.printStackTrace(System.out);}
         }
     }//GEN-LAST:event_MaButtonActionPerformed
 
@@ -343,7 +343,7 @@ public class RadialOptions extends javax.swing.JPanel {
             this.maxAge.setText(this.maxage);
             this.bandWidthBox.setText(plot.getBandWidth());
         } catch (Exception e){
-            if (Data.debugmode){e.printStackTrace(System.out);}
+            if (Data.DEBUGMODE){e.printStackTrace(System.out);}
         }
     }
 
@@ -369,12 +369,13 @@ public class RadialOptions extends javax.swing.JPanel {
                 plot.fixAxes(true);
                 this.setCustomAxes();
             }
+            this.checkLabels();
             foo = this.bandWidthBox.getText();
             plot.checkBandWidth(foo);
             plot.markers = this.MarkerBox.getText();
             prefs.saveprefs(SavePrefsCheckBox.isSelected());
         } catch (Exception e){
-            if (Data.debugmode){e.printStackTrace(System.out);}
+            if (Data.DEBUGMODE){e.printStackTrace(System.out);}
         } finally {
             SwingUtilities.getWindowAncestor(this).dispose();
         }
@@ -384,7 +385,7 @@ public class RadialOptions extends javax.swing.JPanel {
         try {
             prefs.datalabels(labelbox.isSelected());
         } catch (Exception e){
-            if (Data.debugmode){e.printStackTrace(System.out);}
+            if (Data.DEBUGMODE){e.printStackTrace(System.out);}
         }
 }//GEN-LAST:event_labelboxActionPerformed
 
@@ -392,7 +393,7 @@ public class RadialOptions extends javax.swing.JPanel {
         try {
             prefs.sigmalines(sigmabox.isSelected());
         } catch (Exception e){
-            if (Data.debugmode){e.printStackTrace(System.out);}
+            if (Data.DEBUGMODE){e.printStackTrace(System.out);}
         }
     }//GEN-LAST:event_sigmaboxActionPerformed
     
@@ -402,7 +403,7 @@ public class RadialOptions extends javax.swing.JPanel {
             this.showAgeBounds();
             plot.fixUnits(true);            
         } catch (Exception e){
-            if (Data.debugmode){e.printStackTrace(System.out);}
+            if (Data.DEBUGMODE){e.printStackTrace(System.out);}
         }
     }//GEN-LAST:event_aButtonActionPerformed
 
@@ -410,7 +411,7 @@ public class RadialOptions extends javax.swing.JPanel {
         try{
             setAbanico(abanicoBox.isSelected());
         } catch (Exception e){
-            if (Data.debugmode){e.printStackTrace(System.out);}
+            if (Data.DEBUGMODE){e.printStackTrace(System.out);}
         }
     }//GEN-LAST:event_abanicoBoxActionPerformed
 
@@ -438,12 +439,22 @@ public class RadialOptions extends javax.swing.JPanel {
         double centralt = Double.parseDouble(centralage)*plot.unit;
         plot.setMinMaxAge(mint, maxt);
         plot.setCentralAge(centralt);
-        parent.setXlabel(Xlabel.getText());
-        parent.setYlabel(Ylabel.getText());
-        parent.setZlabel(Zlabel.getText());
-        parent.repaint();
     }
-
+    
+    private void checkLabels() throws Exception {
+        String Xlab = Xlabel.getText(),
+               Ylab = Ylabel.getText(),
+               Zlab = Zlabel.getText();
+        if (!plot.data.preferences.xlabel().equals(Xlab) |
+            !plot.data.preferences.ylabel().equals(Ylab) |
+            !plot.data.preferences.zlabel().equals(Zlab)){
+            parent.setXlabel(Xlab);
+            parent.setYlabel(Ylab);
+            parent.setZlabel(Zlab);
+            parent.repaint();
+        }
+    }
+    
     private String age2string(double t) throws Exception {
         double unit = Data.A;
         if (this.MaButton.isSelected()) {

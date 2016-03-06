@@ -16,9 +16,18 @@ public final class PlotPanel extends javax.swing.JPanel{
                 
         this.refresh(data);
         
-        setBorder(BorderFactory.createLineBorder(Color.black));
+        this.setMyBorder();
+        
+        this.addMyMouseListener();
 
-        addMouseListener(new MouseAdapter(){
+    }
+    
+    private void setMyBorder() {
+        this.setBorder(BorderFactory.createLineBorder(Color.black));
+    }
+    
+    private void addMyMouseListener(){
+        this.addMouseListener(new MouseAdapter(){
 
             @Override
             public void mousePressed(MouseEvent e) {             
@@ -29,7 +38,7 @@ public final class PlotPanel extends javax.swing.JPanel{
                         this.PopUp(e);
                     }
                 } catch (Exception ex){
-                    if (Data.debugmode){ex.printStackTrace(System.out);}
+                    if (Data.DEBUGMODE){ex.printStackTrace(System.out);}
                 }
             }
 
@@ -51,7 +60,6 @@ public final class PlotPanel extends javax.swing.JPanel{
             }
             
         });
-
     }
 
     public Plot getPlot() throws Exception {
