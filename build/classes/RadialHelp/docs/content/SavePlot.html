@@ -1,0 +1,52 @@
+<!-- 
+    Document   : SavePlot
+    Created on : 25-Jul-2008, 16:14:02
+    Author     : pvermees
+-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <title>Saving the output</title>
+  </head>
+  <body>
+      <h2>Saving the output</h2>
+      
+The graphical  output  can be saved as either
+bitmap  or  vector images,  in  a <tt>.png</tt>  or  <tt>.pdf</tt>  format,
+respectively, or in a <tt>.csv</tt> comma separated text format.
+
+<p>
+The <tt>.png</tt> (Portable Network Graphics) format  employs a lossless
+data compression algorithm.  Using  imaging software such as Microsoft
+Paint, Adobe Photoshop,  or the Gimp, this can  be easily converted to
+similar formats  such as  <tt>.gif</tt>, <tt>.jpg</tt> or <tt>.bmp</tt>.  The
+image resolution of the plot  is twice that of the output window.
+
+<p>
+Alternatively, the <tt>.pdf</tt>  (Portable Document Format) option saves
+the output in  a vector format, which can be  rescaled without loss of
+resolution.  If saved  in this  format, the  output can  be  edited in
+vector graphics  software such as Adobe Illustrator, CorelDraw, or InkScape and
+converted to formats like <tt>.eps</tt>, <tt>.ai</tt> or <tt>.svg</tt>.
+To convert the fonts of the labels to lines in the document, click on <tt>Options...</tt>
+in the export window, and tick the <tt>'Draw text as shapes'</tt> checkbox.
+
+<p>
+Finally, the <tt>.csv</tt> (Comma Separated Value) option generates a simple
+text file:
+
+<pre>
+samplename
+x(1) &nbsp;&nbsp;&nbsp; , &nbsp;&nbsp;&nbsp; y(1)
+x(2) &nbsp;&nbsp;&nbsp; , &nbsp;&nbsp;&nbsp; y(2)
+&nbsp;&nbsp;&nbsp; ... &nbsp;&nbsp;&nbsp;
+x(n) &nbsp;&nbsp;&nbsp; , &nbsp;&nbsp;&nbsp; y(n)
+</pre>
+
+In density plot mode the x,y-values correspond to the plot coordinates of the
+KDE. In radial plot mode, they correspond to the plot coordinates of the sample 
+points. These values can then be used to reproduce the KDEs and
+radial plots in other software (e.g. MS Excel).
+
+</body>
+</html>

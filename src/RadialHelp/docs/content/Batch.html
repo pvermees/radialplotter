@@ -1,0 +1,92 @@
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <title>Command line options and batch processing</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+      Those settings which are expected to vary from one sample to the next,
+      such as the minimum and maximum values of the horizontal axis, bandwidth,
+      binwidth and central value, can be accessed from the command line.
+      Other properties, which apply to multiple samples, such as colour settings
+      and data transformations, are stored in the preferences file 
+      (<tt>.densityplotter</tt> or <tt>.radialplotter</tt>) and <i>cannot</i>
+      be accessed from the command line. Together, the preferences
+      file and the command line allow the user to access all of the functionality
+      of the program in batch mode. Here are some examples of command line instructions:
+
+      <p></p>
+      <table><tr><td width="10"></td><td>
+      <tt>java -jar path-to-program/DensityPlotter.jar</tt>, or:<br>
+
+      <p></p>
+      <tt>java -jar path-to-program/RadialPlotter.jar</tt>
+      </td></table>
+
+      <p></p>
+      to which the following optional flags can be added:
+
+      <p></p>
+      <table><tr><td width="10"></td><td>
+      <tt>in=path-to-file/input.csv</tt> loads <tt>input.csv</tt> into the program.<br>
+
+      <p></p>
+      <tt>out=path-to-file/output.pdf</tt> saves the graphical output to a file named
+      <tt>output.pdf</tt> and exits the program afterwards.
+
+      <p></p>
+      <tt>min=tm</tt> sets the minimum limit of the x-axis 
+      (density plots) and radial scale (radial plots) to <tt>tm</tt>.
+
+      <p></p>
+      <tt>max=tM</tt> sets the maximum limit of the x-axis
+      (density plots) and radial scale (radial plots) to <tt>tM</tt>.
+      
+      <p></p>
+      <tt>central=tc</tt> sets the central value of the radial scale to <tt>tc</tt>.
+
+      <p></p>
+      <tt>binwidth=width</tt> sets the binwidth of the sample histogram.
+
+      <p></p>
+      <tt>bandwidth=width</tt> sets the bandwidth of the Kernel Density Estimator.
+      
+      <p></p>
+      <tt>markers="n1,n2,n3"</tt> adds marker lines at positions n1, n2 and n3.
+      </td>
+      
+      </table>
+
+      <p></p>
+      Examples:
+
+      <p></p>
+      <table><tr><td width="10"></td><td>
+      <tt>java -jar RadialPlotter.jar in=/home/pieter/Namibia/NAM01.csv</tt><br>
+      &#8594; Open <tt>NAM01.csv</tt> in <tt>RadialPlotter</tt>.
+      <p></p>
+      <tt>java -jar DensityPlotter.jar min=0 max=1000 in=/home/pieter/Namibia/NAM01.csv
+      out=/home/pieter/Desktop/NAM01dens.pdf</tt><br>
+      &#8594; Open <tt>NAM01.csv</tt> in <tt>DensityPlotter</tt>, set the x-axis limits
+      from 0 to 1000, and save the plot on the Desktop as <tt>NAM01dens.pdf</tt>
+      <p></p>
+      <tt>java -jar "/home/pieter/Programming/DensityPlotter/DensityPlotter.2.2.jar"
+      binwidth=10 bandwidth=10 in=UPbdata.csv out=UPbdata.png</tt><br>
+      &#8594; Open <tt>UPbdata.pdf</tt> in legacy version <tt>DensityPlotter.2.2.jar</tt>,
+      set the histogram binwidth and KDE bandwidth to 10, send output to <tt>UPbdata.png</tt>
+      <p></p>
+      <tt>java -jar RadialPlotter.jar min=10 max=500 central=150 in=NAM02.csv</tt><br>
+      &#8594; Open <tt>NAM02.csv</tt> in <tt>RadialPlotter</tt>, set the minimum value of the
+      radial scale to 10, the central value to 150 and the maximum to 500.
+      </td></table>
+
+      <p></p>
+      Combining such commands in a batch file enables quick processing of large numbers of
+      data files.
+
+  </body>
+</html>

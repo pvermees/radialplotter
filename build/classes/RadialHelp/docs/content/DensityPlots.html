@@ -1,0 +1,57 @@
+<!-- 
+    Document   : Introduction
+    Created on : 27-Aug-2008, 18:16:18
+    Author     : pvermees
+-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <title>Density Plots</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+
+      <h2>Density Plots</h2>
+
+Given a set of n measurements x<sub>i</sub> (i=1,...,n), the Kernel Density Estimator (KDE) can
+be written as follows:<br>
+
+<img src="KDE1.png" alt="KDE"><br>
+
+where K(·) is the 'kernel' and h is the 'bandwidth'. Some popular choices for the kernel
+are [Silverman, 1986]:<br>
+
+<img src="Epanechnikov.png" alt="Epanechnikov kernel"><br>
+
+and<br>
+
+<img src="Gauss.png" alt="Gaussian kernel"><br>
+
+More important than the choice of kernel is the bandwidth. Picking the wrong bandwidth may lead to
+over- or undersmoothed density estimates. The bandwidth can either be constant
+('kernel density estimation'), or vary according to the local density
+('adaptive kernel density estimation'). If the distribution is
+unimodal and smooth, the optimal bandwidth may be calculated analytically [Silverman, 1986]:<br>
+
+<img src="KDE3.png" alt="Silverman's Rule"><br>
+
+where &#963; is the standard deviation of the data set. Most detrital age distributions,
+however, are not smooth or unimodal, and the above equation is therefore rarely appropriate,
+yielding oversmoothed density estimates. Adaptive kernel density estimates vary
+the bandwidth according to the local density. In areas where data density
+is sparse, a large bandwidth is used, and the distribution is smoothed.
+Where lots of data are available, a narrower bandwidth is used allowing the
+KDE to provide a high resolution estimate in those parts of the distribution.
+A large number of methods are available for the selection of the adaptive bandwidth. <br>
+
+<img src="adaptive.png" alt="Fixed vs. adaptive kernel density estimation"><br>
+
+This program implements a fixed kernel algorithm based on the diffusion equation, which was 
+shown to be both fast and accurate [Botev et al., 2010]. Adaptive kernel density estimation
+is achieved by taking the Botev estimator as a starting point, and then modifying it according 
+to the sample point estimator of Abramson [1982]. The adaptive kernel density is the default output.
+The original Botev estimator can be retrieved by clicking <tt>Options</tt> &#8594; <tt>Settings</tt>
+and deselecting the <tt>adaptive</tt> checkbox.
+
+  </body>
+</html>

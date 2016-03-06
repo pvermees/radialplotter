@@ -1,0 +1,42 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+
+      <h2>Abanico Plots</h2>
+
+Although radial plots are the only sensible way to simultaneously
+visualise the value and precision of quantitative datasets, they are
+perceived by some as difficult to interpret and therefore inaccessible
+to the uninitiated.  To alleviate this concern, it is useful to
+combine the radial plot with a probability density estimate. This
+combination of graphical devices is sometimes called an 'abanico
+plot'. 
+
+<p></p>
+To produce an abanico plot, select <tt>Options</tt> &#8594;
+<tt>Output</tt> &#8594; <tt>Radial Plot</tt> followed
+by <tt>Options</tt> &#8594; <tt>Settings</tt>, and mark
+the <tt>abanico</tt> check box. This will generate a Kernel Density
+Estimate (KDE) which will be plotted along the radial scale on the
+right side of the output window. The bandwidth of the KDE can either
+be calculated automatically using the algorithm of Botev et
+al. (2010), or set to any other value in the text box which will
+appear in the <tt>Settings</tt> window once the <tt>abanico</tt> check
+box has been selected. Note that for low precision data such as
+fission tracks, it may be useful to extend the minimum and maximum
+values of the radial scale in order to see the entire KDE, rather than
+just the central part of it.
+
+<p></p>
+<tt>RadialPlotter</tt> slightly adjusts the plot dimensions to prevent
+overlapping labels and symbols. The position of the data points relative 
+to the radial scale and its labels can be further improved by holding 
+the <tt>Ctrl</tt>-button while clicking the left mouse button in the 
+output window.
+
+  </body>
+</html>

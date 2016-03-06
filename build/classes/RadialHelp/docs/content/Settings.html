@@ -1,0 +1,84 @@
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+
+      <h2>Scale and Labels</h2>
+      
+    The <tt>Options</tt> &#8594; <tt>Settings</tt> menu item allows the user
+    to customise the visual appearance of the graphical output. The 
+    <tt>Settings</tt> dialog offers different options depending on
+    whether the <tt>Density Plot</tt> or <tt>Radial Plot</tt> option has been
+    selected in the <tt>Output</tt> menu. The settings can be saved by clicking
+    the <tt>'save preferences for next time'</tt> checkbox.
+    
+    <h3>Density Plots</h3>
+
+    Data can be visualised as KDEs, PDPs, histograms and points.
+    Any combination of these four elements can be selected by ticking the appropriate boxes.
+    Other options in the menu allow the user to specify the size of the
+    histogram bins, and to rescale the X-axis.
+    Pressing the  <tt>Ctrl</tt>-button while clicking adjusts the vertical
+    scale. Thus, it is possible to 'zoom into' the density plot,
+    which is useful if one is interested in a minor peak of a particularly 'spiky'
+    distribution. The X-axis labels can be scaled and shortened using a multiplier
+    which is automatically calculated if the <tt>autoscale time labels</tt> option is selected.
+    This option is turned on by default for fission track data, and off for <tt>Other</tt> data.
+
+    <p>
+    The <tt>Settings</tt> panel allows the user to select which combination of
+    density estimators are to be included in the graphical output as either line 
+    drawings or filled polygons:
+    <ul>
+        <li>Kernel Density Estimate (KDE, turned on by default)</li>
+        <li>Probability Density Plot (PDP, turned off by default for reasons given by Vermeesch, 2012)</li>
+        <li>Histogram (turned on by default)</li>
+    </ul>
+    The values of the individual data points may be plotted by a combination of:
+    <ul>
+        <li>Points: circles showing the values ignoring their analytical uncertainty</li>
+        <li>Ticks: vertical lines whose length is proportional to the analytical precision</li>
+        <li>Bells: curves indicating the analytical error distribution of the individual measurements</li>
+    </ul>
+    The <tt>Settings</tt> form also allows the user to specify the bandwidth
+    of the KDE if so desired (the automatic algorithm of Botev et al. 2010 is used
+    by default).
+
+    <h3>Radial Plots</h3>
+
+The radial plots use a  circular  scale.  The  default  values for  the
+minimum, maximum and central values (z<sub>0</sub>) can be changed in the <tt>
+  Options</tt> &#8594;  <tt>Settings</tt> menu. Using  a common
+radial scale for  different samples facilitates their intercomparison.
+The <tt>Settings</tt> menu also  contains a checkbox  for adding
+labels to the data points,  providing an interpretive link between the
+data table and radial  plot. Single-grain ages and their uncertainties
+can  be determined  by clicking  anywhere on  the radial  plot window.
+Pressing the  <tt>Ctrl</tt>-button while clicking  adjusts the horizontal
+scale.
+
+<p>
+The upper left corner of the  output window shows a data summary, including
+the  central  age and  age dispersion. This is  an arguable better estimator of central
+tendency than the  arithmetic mean, because it takes  into account the
+lognormal nature of N<sub>s</sub>/N<sub>i</sub> and most age distributions.
+
+<h3>Markers</h3>
+
+Sometimes external age constraints are available which complement the data plotted
+on a radial or density plot. For example, the depositional age of a sedimentary
+deposit may be known, or a fission track dataset may be complemented by a U-Th-He 
+age. These external age constraints can be plotted alongside the data as marker lines.
+The positions of the markers can be entered in the <tt>Settings</tt> menu as a
+sequence of numbers separated by commas, semi-colons, colons, dashes, spaces, underscores 
+or plusses.
+
+  </body>
+</html>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE index PUBLIC "-//Sun Microsystems Inc.//DTD JavaHelp Index Version 2.0//EN" "http://java.sun.com/products/javahelp/index_2_0.dtd">
+<index version="2.0">
+    <indexitem text="RadialPlotter">
+        <indexitem text="Introduction" target="radialhelp.Introduction"/>
+        <indexitem text="Density Plots" target="radialhelp.DensityIntro"/>
+        <indexitem text="Radial Plots" target="radialhelp.RadialIntro"/>
+        <indexitem text="Entering Data" target="radialhelp.EnteringData"/>
+        <indexitem text="Fission Tracks" target="radialhelp.FT"/>
+        <indexitem text="Other Data" target="radialhelp.Other"/>       
+        <indexitem text="Save Plot" target="radialhelp.SavePlot"/>
+        <indexitem text="Transformations" target="radialhelp.Transformations"/>
+        <indexitem text="Mixture Modelling" target="radialhelp.BinomFit"/>
+        <indexitem text="Colours" target="radialhelp.Colours"/>
+        <indexitem text="Settings" target="radialhelp.Settings"/>
+        <indexitem text="Abanico Plots" target="radialhelp.Abanico"/>
+        <indexitem text="Normalisation" target="radialhelp.Normalisation"/>
+        <indexitem text="Batch processing" target="radialhelp.Batch"/>
+        <indexitem text="References" target="radialhelp.References"/>
+    </indexitem>
+</index>
