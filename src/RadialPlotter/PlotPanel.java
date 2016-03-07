@@ -119,7 +119,6 @@ public final class PlotPanel extends javax.swing.JPanel{
                 radialplot.plotData();
                 radialplot.plotRadialScale();
                 radialplot.plotAxes();
-                radialplot.printLegend();
                 if (radialplot.data.preferences.abanico()){
                     radialplot.plotKDE();
                 }
@@ -131,7 +130,8 @@ public final class PlotPanel extends javax.swing.JPanel{
                 if (radialplot.getData().preferences.sigmalines()){
                     radialplot.plotSigmaLines();
                 }
-           } else {
+                radialplot.printLegend();
+            } else {
                 densityplot.setGraphics(g2, this.getWidth(), this.getHeight());
                 if (densityplot.firstRun()){
                     densityplot.setDefault();
