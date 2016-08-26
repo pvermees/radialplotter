@@ -213,6 +213,24 @@ public class FTdata extends Data implements Iterator, Iterable {
         return out;
     }
 
+    @Override
+    double getPX2() throws Exception {
+        double[] NsNi;
+        double X2 = 0d, Nsj, Nij, Ns = 0, Ni = 0;
+        for (Iterator i = this.iterator(); i.hasNext(); ) {
+            NsNi = (double[]) i.next();
+            Ns += (int) NsNi[0];
+            Ni += (int) NsNi[1];
+        }
+        for (Iterator i = this.iterator(); i.hasNext(); ) {
+            NsNi = (double[]) i.next();
+            Nsj = NsNi[0];
+            Nij = NsNi[1];
+            X2 += (Nsj*Ni-Nij*Ns)*(Nsj*Ni-Nij*Ns)/((Nsj + Nij)*Ns*Ni);
+        }
+        return 1 - Stat.chiSquareCDF(X2, this.length()-1);
+    }
+    
     public double getNi(int index) throws Exception {
         return super.getY(index);
     }

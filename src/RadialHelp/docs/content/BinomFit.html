@@ -13,12 +13,18 @@
 
 <h2>Mixture models</h2>
 
-For fission track data, the program automatically performs
-a &#967;<sup>2</sup>-test for statistical homogeneity, based
-on the &#967;<sup>2</sup>-statistic:<br>
+The program automatically performs
+a &chi;<sup>2</sup>-test for statistical homogeneity, based
+on the &chi;<sup>2</sup>-statistic:<br>
 
 <img src="X2statFormula.png"><br>
 
+for fission track data, or<br>
+
+<img src="X2statOther.png"><br>
+
+for other data (where z<sub>j</sub>=log[t<sub>j</sub>] and 
+&sigma;<sub>j</sub>=&sigma;[t<sub>j</sub>]/t<sub>j</sub>). 
 The corresponding p-value is shown on the radial plot. A p-value
 is the probability of observing a &#967;<sup>2</sup><sub>stat</sub>-value
 greater or equal than the observed value under the null assumption of

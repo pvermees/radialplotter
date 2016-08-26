@@ -11,9 +11,7 @@ public class RadialLegend {
     public void printLegend() throws Exception {
         this.drawTitle(1);
         this.drawCentralAge(2);
-        if (plot.getData() instanceof FTdata){
-            this.drawX2(4);
-        }
+        this.drawX2(4);
         this.drawPeaks(16);
     }
 
@@ -113,7 +111,7 @@ public class RadialLegend {
     
     private void drawX2(int lineno) throws Exception {
         DecimalFormat fm = new DecimalFormat("0.00");
-        String label = "P(χ²) = " + fm.format(FT.getPX2((FTdata)(plot.getData())));
+        String label = "P(χ²) = " + fm.format(plot.getData().getPX2());
         plot.drawString(label, plot.getLeftMargin(), 1-lineno*plot.getLineHeight());
     }
     

@@ -143,6 +143,25 @@ public class OtherData extends Data implements Iterator, Iterable {
         return getMean(false);
     }
 
+    @Override
+    double getPX2() throws Exception {
+        double[] XYW;
+        double X2, age, age_err, zj, sj, 
+               sumzj2sj2 = 0d, sumzjsj2 = 0d, sum1sj2 = 0d;
+        for (Iterator i = this.iterator(); i.hasNext(); ) {
+            XYW = (double[]) i.next();
+            age = XYW[0];
+            age_err = XYW[1];
+            zj = this.log(age);
+            sj = this.logerr(age, age_err);
+            sumzj2sj2 += (zj*zj)/(sj*sj);
+            sumzjsj2 += zj/(sj*sj);
+            sum1sj2 += 1/(sj*sj);
+        }
+        X2 = sumzj2sj2 - sumzjsj2*sumzjsj2/sum1sj2;
+        return 1 - Stat.chiSquareCDF(X2, this.length()-1);
+    }
+    
     double[] getMean(boolean geometric) throws Exception {
         ArrayList<double[]> tst = new ArrayList<double[]>();
         double[] AgeErr, MuXi, out = new double[3];

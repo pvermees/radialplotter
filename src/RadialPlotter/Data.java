@@ -174,6 +174,8 @@ public abstract class Data implements Iterator, Iterable {
     abstract double getPooledAge() throws Exception;    
 
     abstract double[] getArithmeticMean() throws Exception;
+    
+    abstract double getPX2() throws Exception;
 
     public double[] getMinMaxAgeErr(boolean doLog) throws Exception {
         double[][] dea = this.getDataErrArray(doLog);

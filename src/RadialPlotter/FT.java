@@ -56,28 +56,6 @@ class FT{
         return ToolBox.log((Math.exp(LAMBDA*t)-1)/(LAMBDA*G*data.getRhoD()*data.getZeta()));
     }
     
-    public static double getPX2(FTdata data) throws Exception {
-        double X2 = getX2(data);
-        return 1 - Stat.chiSquareCDF(X2, data.length()-1);
-    }
-    
-    private static double getX2(FTdata data) throws Exception {
-        double[] NsNi;
-        double X2 = 0d, Nsj, Nij, Ns = 0, Ni = 0;
-        for (Iterator i = data.iterator(); i.hasNext(); ) {
-            NsNi = (double[]) i.next();
-            Ns += (int) NsNi[0];
-            Ni += (int) NsNi[1];
-        }
-        for (Iterator i = data.iterator(); i.hasNext(); ) {
-            NsNi = (double[]) i.next();
-            Nsj = NsNi[0];
-            Nij = NsNi[1];
-            X2 += (Nsj*Ni-Nij*Ns)*(Nsj*Ni-Nij*Ns)/((Nsj + Nij)*Ns*Ni);
-        }
-        return X2;        
-    }
-    
     private static double initializeTheta(FTdata data) throws Exception {
         double[] NsNi;
         int Nsj, Nij, mj, num = 0, denom = 0;
