@@ -17,5 +17,6 @@
         <indexitem text="Normalisation" target="radialhelp.Normalisation"/>
         <indexitem text="Batch processing" target="radialhelp.Batch"/>
         <indexitem text="References" target="radialhelp.References"/>
+        <indexitem text="FAQ" target="radialhelp.FAQ"/>
     </indexitem>
 </index>

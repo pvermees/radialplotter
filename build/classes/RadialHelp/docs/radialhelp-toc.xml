@@ -18,4 +18,5 @@
     <tocitem text="Area normalisation" target="radialhelp.Normalisation"/>
     <tocitem text="Batch processing" target="radialhelp.Batch"/>
     <tocitem text="References" target="radialhelp.References"/>
+    <tocitem text="FAQ" target="radialhelp.FAQ"/>
 </toc>

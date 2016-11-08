@@ -16,4 +16,5 @@
     <mapID target="radialhelp.Normalisation" url="content/Normalise.html"/>
     <mapID target="radialhelp.Batch" url="content/Batch.html"/>
     <mapID target="radialhelp.References" url="content/References.html"/>
+    <mapID target="radialhelp.FAQ" url="content/FAQ.html"/>
 </map>
