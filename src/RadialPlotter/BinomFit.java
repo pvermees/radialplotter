@@ -66,10 +66,9 @@ public final class BinomFit {
         if (data instanceof FTdata){
             FTdata ftdata = (FTdata)data;
             double NsNi = theta[numpeaks-1][i]/(1-theta[numpeaks-1][i]);
-            double NsNiRelErr2 = cov.get(numpeaks-1+i,numpeaks-1+i)/
-                                 Math.pow(theta[numpeaks-1][i],2);
+            double betaErr2 = cov.get(numpeaks-1+i,numpeaks-1+i);
             ae[0] = FT.getFTage(ftdata.getZeta(),ftdata.getRhoD(),NsNi, 1);
-            ae[1] = ae[0]*Math.sqrt(NsNiRelErr2 +
+            ae[1] = ae[0]*Math.sqrt( betaErr2 +
                     Math.pow(ftdata.getRhoD_Err()/ftdata.getRhoD(),2) +
                     Math.pow(ftdata.getZeta_Err()/ftdata.getZeta(),2));
         } else if (data.preferences.logarithmic()) {
