@@ -54,18 +54,19 @@ static double solveXi(ArrayList<double[]> tst, double mu) throws Exception {
 }
 
 static double[] getfdf(ArrayList<double[]> tst, double mu, double xi){
-    double f = 0d, df = 0d, a, a2, b, b2, b3, t, st;
-    for (int i=0; i<tst.size(); i++){
-        t = tst.get(i)[0];
-        st = tst.get(i)[1];
-        a = t-mu;
-        a2 = a*a;
-        b = st*st+xi;
-        b2 = b*b;
-        b3 = b2*b;
-        f += (a2/b2 - 1/b);
-        df += (1/b2 - 2*a2/b3);
+    double f, df, zu, su, wu, LH = 0d, RH = 0d, dwu, dLH = 0d, dRH = 0d;
+    for (int u=0; u<tst.size(); u++){
+        zu = tst.get(u)[0];
+        su = tst.get(u)[1];
+        wu = 1/(su*su+xi);
+        LH += Math.pow(wu*(zu-mu),2);
+        RH += wu;
+        dwu = -wu*wu;
+        dLH += 2*(zu-mu)*dwu;
+        dRH += dwu;
     }
+    f = Math.pow(1-LH/RH,2);
+    df = 2*(1-LH/RH)*(dLH*RH-LH*dRH)/(RH*RH);
     double[] fdf = {f,df};
     return fdf;
 }
