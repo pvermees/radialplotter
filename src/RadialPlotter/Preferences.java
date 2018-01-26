@@ -175,6 +175,10 @@ public class Preferences {
     return get("transformation").equals("logarithmic");
   }
 
+  public boolean sqrt() throws Exception {
+    return get("transformation").equals("sqrt");
+  }
+  
   public boolean arcsin() throws Exception {
     return get("transformation").equals("arcsin");
   }

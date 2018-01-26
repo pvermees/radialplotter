@@ -132,6 +132,8 @@ public class RadialPlot extends Plot {
                                 ((FTdata)data).getRhoD(), Math.exp(beta), 1);
             } else if (data.preferences.logarithmic()) {
                 t = data.exp(theta[numpeaks-1][i]);
+            } else if (data.preferences.sqrt()) {
+                t = Math.pow(theta[numpeaks-1][i],2);
             } else {
                 t = theta[numpeaks-1][i];
             }

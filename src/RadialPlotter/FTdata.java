@@ -293,20 +293,26 @@ public class FTdata extends Data implements Iterator, Iterable {
     }
 
     @Override
-    protected double[][] getDataErrArray(boolean doLog) throws Exception {
+    protected double[][] getDataErrArray(String transformation) throws Exception {
         double[] NsNi;
         double[][] ages = new double[2][this.length()],
-                   logages = new double[2][this.length()], out;
+                   out = new double[2][this.length()];
         int j = 0;
         double buff = this.hasZeros() ? 0.5 : 0;
         for (Iterator i = iterator(); i.hasNext(); j++) {
             NsNi = (double[]) i.next();
             ages[0][j] = FT.getFTage(zeta, rhoD, NsNi[0]+buff, NsNi[1]+buff);
             ages[1][j] = FT.getFTageErr(zeta, zeta_err, rhoD, rhoD_err, NsNi[0]+buff, NsNi[1]+buff);
-            logages[0][j] = ToolBox.log(ages[0][j]);
-            logages[1][j] = ages[1][j]/ages[0][j];
+            if (transformation.equals("linear")){
+                out = ages;
+            } else if (transformation.equals("logarithmic")){
+                out[0][j] = ToolBox.log(ages[0][j]);
+                out[1][j] = ages[1][j]/ages[0][j];
+            } else if (transformation.equals("sqrt")){
+                out[0][j] = Math.sqrt(ages[0][j]);
+                out[1][j] = 0.5*ages[1][j]/out[0][j];                
+            }
         }
-        out = doLog ? logages : ages;
         return out;
     }
     

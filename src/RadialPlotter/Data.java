@@ -177,8 +177,8 @@ public abstract class Data implements Iterator, Iterable {
     
     abstract double getPX2() throws Exception;
 
-    public double[] getMinMaxAgeErr(boolean doLog) throws Exception {
-        double[][] dea = this.getDataErrArray(doLog);
+    public double[] getMinMaxAgeErr(String transformation) throws Exception {
+        double[][] dea = this.getDataErrArray(transformation);
         double[] minmaxterr = {MINT,MAXT, 0, 0}; // initialise to some ridiculous values
         for (int i=0; i<dea[0].length; i++){
             if (dea[0][i]<minmaxterr[0]){
@@ -194,7 +194,7 @@ public abstract class Data implements Iterator, Iterable {
     };
 
     double[] getMinMaxAge() throws Exception{
-        double[] minmaxterr = getMinMaxAgeErr(false),
+        double[] minmaxterr = getMinMaxAgeErr("linear"),
                  out = {minmaxterr[0],minmaxterr[1]};
         return out;
     }
@@ -347,7 +347,7 @@ public abstract class Data implements Iterator, Iterable {
         return false;
     }
 
-    abstract double[][] getDataErrArray(boolean doLog) throws Exception;
+    abstract double[][] getDataErrArray(String transformation) throws Exception ;
 
     abstract double z2t(double z0) throws Exception ;
     
@@ -356,7 +356,7 @@ public abstract class Data implements Iterator, Iterable {
     abstract double[] zs2ts(double z, double s) throws Exception ;
     
     int count(double min, double max) throws Exception {
-        double[][] ae = this.getDataErrArray(false);
+        double[][] ae = this.getDataErrArray("linear");
         int n = 0;
         for (int i=0; i<ae[0].length; i++){
             if (ae[0][i] >= min & ae[0][i] <= max) n++;

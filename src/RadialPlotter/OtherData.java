@@ -40,6 +40,8 @@ public class OtherData extends Data implements Iterator, Iterable {
             t = z;
         } else if (preferences.logarithmic()){
             t = this.exp(z);
+        } else if (preferences.sqrt()){
+            t = Math.pow(z,2);
         }
         return t;
     }
@@ -51,6 +53,8 @@ public class OtherData extends Data implements Iterator, Iterable {
             zout = t;
         } else if (preferences.logarithmic()){
             zout = this.log(t);
+        } else if (preferences.sqrt()){
+            zout = Math.sqrt(t);
         }
         return zout;
     }    
@@ -64,6 +68,9 @@ public class OtherData extends Data implements Iterator, Iterable {
         } else if (preferences.logarithmic()){
             ts[0] = this.exp(z);
             ts[1] = this.experr(z, s);
+        } else if (preferences.sqrt()){
+            ts[0] = Math.pow(z,2);
+            ts[1] = 2*s*z;
         }
         return ts;
     }
@@ -77,7 +84,7 @@ public class OtherData extends Data implements Iterator, Iterable {
         z.clear();
         sigma.clear();
         double zj = 0.0, sigmaj = 0.0, age, age_err;
-        double[] XYW;
+        double[] XYW, tsd;
         // calculate the zout and sigma values for each grain
         for (Iterator i= this.iterator(); i.hasNext(); ) {
             XYW = (double[]) i.next();
@@ -90,17 +97,19 @@ public class OtherData extends Data implements Iterator, Iterable {
             } else if (preferences.logarithmic()){
                 zj = this.log(age);
                 sigmaj = this.logerr(age, age_err);
+            } else if (preferences.sqrt()){
+                zj = Math.sqrt(age);
+                sigmaj = 0.5*age_err/zj;
             }
             z.add(zj);
             sigma.add(sigmaj);
         }
         // calculate the central value (z)
         if (!fixedAxes) {
-            double[] tsd = new double[3];
-            if (preferences.linear()){
-                tsd = this.getArithmeticMean();
-            } else if (preferences.logarithmic()){
+            if (preferences.logarithmic()){
                 tsd = this.getGeometricMean();
+            } else {
+                tsd = this.getArithmeticMean();
             }
             this.set_z0(this.t2z(tsd[0]));
         }
@@ -213,19 +222,23 @@ public class OtherData extends Data implements Iterator, Iterable {
     }
 
     @Override
-    protected double[][] getDataErrArray(boolean doLog) throws Exception {
+    protected double[][] getDataErrArray(String transformation) throws Exception {
         double[] ae;
-        double[][] ages = new double[2][this.length()],
-                   logages = new double[2][this.length()], out;
+        double[][] out = new double[2][this.length()];
         int j = 0;
         for (Iterator i= iterator(); i.hasNext(); j++) {
             ae = (double[]) i.next();
-            ages[0][j] = ae[0];
-            ages[1][j] = ae[1];
-            logages[1][j] = this.logerr(ages[0][j],ages[1][j]);
-            logages[0][j] = this.log(ages[0][j]);
+            if (transformation.equals("logarithmic")){
+                out[1][j] = this.logerr(ae[0],ae[1]);
+                out[0][j] = this.log(ae[0]);                
+            } else if (transformation.equals("sqrt")){
+                out[0][j] = Math.sqrt(ae[0]);
+                out[1][j] = 0.5*ae[1]/out[0][j];
+            } else {
+                out[0][j] = ae[0];
+                out[1][j] = ae[1];
+            }
         }
-        out = doLog ? logages : ages;
         return out;
     }
 

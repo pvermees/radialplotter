@@ -50,7 +50,7 @@ public class RadialAxes {
         this.setPrecisionTicks();
         this.setRelErrTicks();
         this.plotXaxisLine();
-        if (prefs.logarithmic() || prefs.arcsin()){
+        if (prefs.logarithmic() || prefs.arcsin() || prefs.sqrt()){
             this.plotPrecisionTicks();
         }
         if (prefs.linear() || prefs.logarithmic()){
@@ -100,6 +100,11 @@ public class RadialAxes {
             g2.drawLine(plot.wmap(xy1[0]), plot.hmap(bottommargin), 
                 plot.wmap(xy2[0]), plot.hmap(bottommargin));
             g2.drawString("Ns+Ni", plot.wmap(xy1[0]/50), plot.hmap(2*bottommargin/3));
+        } else if (prefs.sqrt()){
+            xy2 = plot.rxry2xy(precisionticks.get(precisionticks.size()-1), dummy);
+            g2.drawLine(plot.wmap(xy1[0]), plot.hmap(bottommargin), 
+                plot.wmap(xy2[0]), plot.hmap(bottommargin));
+            g2.drawString("precision", plot.wmap(2*xy1[0]/3), plot.hmap(bottommargin+plot.getTicklength()));
         }
         // uncomment the following two lines if you want the x-axis to be longer
         //plot.getGraphics().drawLine(plot.wmap(xy[0]), plot.hmap(bottommargin), 
@@ -124,6 +129,8 @@ public class RadialAxes {
             return Integer.toString((int)precision); // x
         } else if (prefs.arcsin()){
             return Integer.toString((int)(precision*precision/4)); // Ns + Ni
+        } else if (prefs.sqrt()){
+            return ToolBox.num2string(precision,2); // x
         } else {
             return "";
         }
@@ -164,17 +171,22 @@ public class RadialAxes {
     
     private void setPrecisionTicks() throws Exception {
         this.precisionticks.clear();
-        double range = Math.ceil(ToolBox.getMax(plot.getRadialX()));
+        double range = ToolBox.getMax(plot.getRadialX());
         double interval = getPrecisionInterval(range);
+        double max = Math.ceil(range/interval)*interval;
         precisionticks.add(0, 0d);
-        for (int i=1;(precisionticks.get(i-1)+interval)<range;i++){
+        for (int i=1;(precisionticks.get(i-1)+interval)<max;i++){
             precisionticks.add(precisionticks.get(i-1)+interval);
         }
-        precisionticks.add(precisionticks.size(), range);
+        precisionticks.add(precisionticks.size(),max);
     }
     
     private double getPrecisionInterval(double range) throws Exception {
-        if (range <= 5) {
+        if (range <= 0.25) {
+            return 0.05;
+        } else if (range <= 2) {
+            return 0.25;
+        } else if (range <= 5) {
             return 1;
         } else {
             return Math.floor(range/5.0);
@@ -185,7 +197,7 @@ public class RadialAxes {
         this.relerrticks.clear();
         double maxx = ToolBox.getMax(plot.getRadialX()),
                minx = ToolBox.getMin(plot.getRadialX());
-        if (prefs.linear() | prefs.logarithmic()){
+        if (prefs.linear() || prefs.logarithmic()){
             relerrticks.add(0, 2d/(minx+maxx));
             relerrticks.add(0, 1d/minx);
             relerrticks.add(0, 1d/maxx);

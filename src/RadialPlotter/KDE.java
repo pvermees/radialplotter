@@ -22,7 +22,7 @@ public class KDE {
     
     public void setBandwidth(Data data, boolean auto) {
         try {
-            double[] x = data.getDataErrArray(data.preferences.logarithmic())[0];
+            double[] x = data.getDataErrArray(data.preferences.transformation())[0];
             this.setBandwidth(x,auto);
         } catch (Exception e) {
             this.bandwidth = Data.NAN;
@@ -42,7 +42,7 @@ public class KDE {
     
     // get the density rescaled so that the maximum value is 1
     public double[] getKDE(Data data, double[] timescale, boolean autoBandwidth) throws Exception {
-        double[][] ae = data.getDataErrArray(data.preferences.logarithmic());
+        double[][] ae = data.getDataErrArray(data.preferences.transformation());
         boolean adaptive = data.preferences.adaptive();
         boolean epanechnikov = data.preferences.epanechnikov();
         return (this.getKDE(ae[0], timescale, autoBandwidth, adaptive, epanechnikov));
@@ -73,21 +73,30 @@ public class KDE {
     }
             
     private double[] getMesh(Data data) throws Exception {
-        boolean doLog = data.preferences.logarithmic();
         double[] minmaxt = data.getMinMaxAge(), 
                  xmesh = new double[nt];
         double dt, minx, maxx;
-        if (doLog){
+        if (data.preferences.logarithmic()){
             minx = minmaxt[0]/2;
             maxx = minmaxt[1]*2;
             dt = (data.log(maxx)-data.log(minx))/(nt-1);
+        } else if (data.preferences.logarithmic()){
+            minx = minmaxt[0]-(minmaxt[1]-minmaxt[0])/5;
+            maxx = minmaxt[1]+(minmaxt[1]-minmaxt[0])/5;
+            dt = (Math.sqrt(maxx)-Math.sqrt(minx))/(nt-1);            
         } else {
             minx = minmaxt[0]-(minmaxt[1]-minmaxt[0])/5;
             maxx = minmaxt[1]+(minmaxt[1]-minmaxt[0])/5;
             dt = (maxx-minx)/(nt-1);
         }
         for (int i=0; i<nt; i++){
-            xmesh[i] = doLog ? data.log(minx) + i*dt : minx + i*dt;
+            if (data.preferences.logarithmic()){
+                xmesh[i] = data.log(minx) + i*dt;
+            } else if (data.preferences.logarithmic()){
+                xmesh[i] = Math.sqrt(minx) + i*dt;
+            } else {
+                xmesh[i] = minx + i*dt;
+            }
         }
         return xmesh;
     }

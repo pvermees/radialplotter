@@ -116,6 +116,7 @@ public final class DensityPlot extends Plot {
         int x, y, h, w = (int)(this.width * (1.0D - this.leftmargin - this.rightmargin) * binwidth / (this.timescale[nt-1] - this.timescale[0]));
         for (int i = 0; i < numbins; i++) {
             if ((data.preferences.logarithmic() && hist[0][i] > data.log(plotmax)) ||
+                (data.preferences.sqrt() && hist[0][i] > Math.sqrt(plotmax)) ||
                 (data.preferences.linear() && hist[0][i] > plotmax)) break;
             x = wmap(this.leftmargin + (1.0D - this.leftmargin - this.rightmargin) * (hist[0][i] - binwidth / 2.0D - this.timescale[0]) / (this.timescale[nt-1] - this.timescale[0]));
             y = hmap(this.bottommargin + (1.0D - this.bottommargin - this.topmargin) * zoom(hist[1][i]));
@@ -133,17 +134,15 @@ public final class DensityPlot extends Plot {
     }
   
     public void plotBells() throws Exception {
-        double[][] ae = data.getDataErrArray(false);
+        double[][] ae = data.getDataErrArray(data.preferences.transformation());
         double[] bl = new double[ae[0].length], // belllines
                  p = new double[nt];
         int x, y1, y2;
         int[][] xy;
-        boolean doLog = data.preferences.logarithmic();
         for (int i=0; i<ae[0].length; i++){
             if (ae[1][i]>0){
-                bl[i] = doLog ? Stat.gaussianPDF(data.log(ae[0][i]), data.logerr(ae[0][i],ae[1][i]), data.log(ae[0][i])) :
-                                Stat.gaussianPDF(ae[0][i], ae[1][i], ae[0][i]);
-            } else { // if only one column worth of data are supplied
+                bl[i] = Stat.gaussianPDF(ae[0][i],ae[1][i],ae[0][i]);
+            } else { // if only one column worth of data is supplied
                 bl[i] = 1d;
             }
         }
@@ -163,8 +162,7 @@ public final class DensityPlot extends Plot {
                 // loop through time scale
                 for (int j=0; j<nt; j++){
                     if (ae[1][i]>0){
-                        p[j] = doLog ? Stat.gaussianPDF(data.log(ae[0][i]), data.logerr(ae[0][i],ae[1][i]), timescale[j]):
-                                       Stat.gaussianPDF(ae[0][i], ae[1][i], timescale[j]);
+                        p[j] = Stat.gaussianPDF(ae[0][i],ae[1][i],timescale[j]);
                     }
                 }
                 p = this.rescale(p, M);
@@ -174,25 +172,25 @@ public final class DensityPlot extends Plot {
         }
     }
 
-  public void plotPoints() throws Exception {
-    double[][] ae = this.data.getDataErrArray(false);
-    int x, y = hmap(this.bottommargin), 
-        ss = wmap(this.symbolsize);
-    for (int i = 0; i < ae[0].length; i++) {
-      if ((ae[0][i]>=this.plotmin) && (ae[0][i]<=this.plotmax)) {
-        x = getPlotX(ae[0][i]);
-        if (this.data.preferences.dopointsfill()) {
-          setStyle(this.data.preferences.pointsfillcolour(), 0, 0.5F);
-          this.g2.fillOval(x - ss / 2, y + ss / 2, ss, ss);
+    public void plotPoints() throws Exception {
+      double[][] ae = this.data.getDataErrArray("linear");
+      int x, y = hmap(this.bottommargin), 
+          ss = wmap(this.symbolsize);
+      for (int i = 0; i < ae[0].length; i++) {
+        if ((ae[0][i]>=this.plotmin) && (ae[0][i]<=this.plotmax)) {
+          x = getPlotX(ae[0][i]);
+          if (this.data.preferences.dopointsfill()) {
+            setStyle(this.data.preferences.pointsfillcolour(), 0, 0.5F);
+            this.g2.fillOval(x - ss / 2, y + ss / 2, ss, ss);
+          }
+          if (this.data.preferences.dopointstroke()) {
+            setStyle(this.data.preferences.pointstrokecolour(), 1, 1.0F);
+            this.g2.drawOval(x - ss / 2, y + ss / 2, ss, ss);
+          }
+          resetStyle();
         }
-        if (this.data.preferences.dopointstroke()) {
-          setStyle(this.data.preferences.pointstrokecolour(), 1, 1.0F);
-          this.g2.drawOval(x - ss / 2, y + ss / 2, ss, ss);
-        }
-        resetStyle();
       }
     }
-  }
   
     public double zoom(double in){
         double out = (in-miny)/(maxy-miny);
@@ -251,6 +249,12 @@ public final class DensityPlot extends Plot {
                         xval = (xticks[i-1]+dt*j/(double)minorticks);
                         drawTick(xval,length/2);
                     }
+                } else if (data.preferences.sqrt()){
+                    for (int j=1; j<minorticks; j++){
+                        dt = Math.sqrt(xticks[i])-Math.sqrt(xticks[i-1]);
+                        xval = Math.pow((Math.sqrt(xticks[i-1])+dt*j/(double)minorticks),2);
+                        drawTick(xval,length/2);
+                    }
                 } else {
                     for (int j=1; j<minorticks-1; j++){
                         dt = (double)j/(double)minorticks;
@@ -290,6 +294,8 @@ public final class DensityPlot extends Plot {
         double x;
         if (data.preferences.logarithmic()) {
             x = (data.log(val)-data.log(plotmin))/(data.log(plotmax)-data.log(plotmin));
+        } else if (data.preferences.sqrt()) {
+            x = (Math.sqrt(val)-Math.sqrt(plotmin))/(Math.sqrt(plotmax)-Math.sqrt(plotmin));
         } else {
             x = (val-plotmin)/(plotmax-plotmin);
         }
@@ -302,9 +308,14 @@ public final class DensityPlot extends Plot {
         if (x<leftmargin | x>1-rightmargin) {
             val = Data.NAN;
         } else if (data.preferences.logarithmic()) {
-            val = data.exp(data.log(plotmin) + (x-leftmargin)*(data.log(plotmax)-data.log(plotmin))/(1-leftmargin-rightmargin));
+            val = data.exp(data.log(plotmin) + (x-leftmargin)*
+                 (data.log(plotmax)-data.log(plotmin))/(1-leftmargin-rightmargin));
+        } else if (data.preferences.sqrt()) {
+            val = Math.pow(plotmin,2) + (x-leftmargin)*
+                 (Math.pow(plotmax,2)-Math.pow(plotmin,2))/(1-leftmargin-rightmargin);
         } else {
-            val = plotmin + (x-leftmargin)*(plotmax-plotmin)/(1-leftmargin-rightmargin);
+            val = plotmin + (x-leftmargin)*
+                 (plotmax-plotmin)/(1-leftmargin-rightmargin);
         }
         return val;
     }
@@ -335,7 +346,7 @@ public final class DensityPlot extends Plot {
     double[] getXticks() throws Exception{
         int numticks;
         double[] xticks;
-        double mintick, dt, exp1, exp2, magnitude;
+        double mintick, dt, magnitude;
         if (data.preferences.linear()){
             numticks = 10;
             dt = (plotmax-plotmin)/numticks; // e.g., 1.3443, 18.23, 820.32, ...
@@ -348,9 +359,19 @@ public final class DensityPlot extends Plot {
             for (int i=1; i<numticks+1; i++){
                 xticks[i] = mintick + i*dt;
             }
+        } else if (data.preferences.sqrt()){
+            numticks = 10;
+            double sq1 = Math.sqrt(plotmin);
+            double sq2 = Math.sqrt(plotmax);
+            dt = (sq2-sq1)/numticks;
+            xticks = new double[numticks+1];
+            xticks[0] = plotmin;
+            for (int i=1; i<numticks+1; i++){
+                xticks[i] = Math.pow(sq1+i*dt,2);
+            }
         } else {
-            exp1 = Math.floor(data.log10(plotmin));
-            exp2 = Math.ceil(data.log10(plotmax));
+            double exp1 = Math.floor(data.log10(plotmin));
+            double exp2 = Math.ceil(data.log10(plotmax));
             numticks = (int) (1+exp2-exp1);
             xticks = new double[numticks];
             for (int i=0; i<numticks; i++){
@@ -392,8 +413,11 @@ public final class DensityPlot extends Plot {
         if (data.preferences.logarithmic()){
             min = data.log(plotmin);
             max = data.log(plotmax);
+        } else if (data.preferences.sqrt()){
+            min = Math.sqrt(plotmin);
+            max = Math.sqrt(plotmax);            
         }
-        double[][] ae = data.getDataErrArray(data.preferences.logarithmic());
+        double[][] ae = data.getDataErrArray(data.preferences.transformation());
         double[][] hist = Stat.histogramBins(ae[0], binwidth, min,max);
         return hist;
     }
@@ -480,10 +504,22 @@ public final class DensityPlot extends Plot {
     
     static double[] getTimeScale(Data data, double mint, double maxt, int nt) throws Exception {
         double[] timescale = new double[nt];
-        boolean doLog = data.preferences.logarithmic();
-        double dt = doLog ? (data.log(maxt)-data.log(mint))/(nt-1) : (maxt-mint)/(nt-1);
+        double dt;
+        if (data.preferences.logarithmic()){
+            dt = (data.log(maxt)-data.log(mint))/(nt-1);
+        } else if (data.preferences.sqrt()){
+            dt = (Math.sqrt(maxt)-Math.sqrt(mint))/(nt-1);
+        } else {
+            dt = (maxt-mint)/(nt-1);
+        }
         for (int i=0; i<nt; i++){
-            timescale[i] = doLog ? data.log(mint) + i*dt : mint + i*dt;
+            if (data.preferences.logarithmic()){
+                timescale[i] = data.log(mint) + i*dt;
+            } else if (data.preferences.sqrt()){
+                timescale[i] = Math.sqrt(mint) + i*dt;
+            } else {
+                timescale[i] = mint + i*dt;
+            }
         }
         return timescale;
     }
@@ -567,6 +603,9 @@ public final class DensityPlot extends Plot {
         if (data.preferences.logarithmic()){
             m = data.log(plotmin);
             M = data.log(plotmax);
+        } else if (data.preferences.logarithmic()){
+            m = Math.sqrt(plotmin);
+            M = Math.sqrt(plotmax);            
         }
         for (int i=0; i<timescale.length; i++){
             if (timescale[i]>=m && timescale[i]<=M){
@@ -578,7 +617,7 @@ public final class DensityPlot extends Plot {
     }   
     
     public double[] getPDP() throws Exception {
-        double[][] ae = data.getDataErrArray(data.preferences.logarithmic());
+        double[][] ae = data.getDataErrArray(data.preferences.transformation());
         double[] pdp = new double[nt];
         for (int i=0; i<ae[0].length; i++){
             for (int j=0; j<nt; j++){
@@ -589,7 +628,7 @@ public final class DensityPlot extends Plot {
     }
 
     public double[] getBells() throws Exception {
-        double[][] ae = data.getDataErrArray(data.preferences.logarithmic());
+        double[][] ae = data.getDataErrArray(data.preferences.transformation());
         double[] pdp = new double[nt];
         double p;
         for (int i=0; i<ae[0].length; i++){
@@ -674,6 +713,10 @@ public final class DensityPlot extends Plot {
                 bw = (data.log(minmaxt[1])-data.log(minmaxt[0]))/numbins;
                 numbins = (int) Math.ceil((data.log(plotmax)-data.log(plotmin))/bw);
                 bw = (data.log(plotmax)-data.log(plotmin))/numbins;
+            } else if (data.preferences.sqrt()) {
+                bw = (Math.sqrt(minmaxt[1])-Math.sqrt(minmaxt[0]))/numbins;
+                numbins = (int) Math.ceil((Math.sqrt(plotmax)-Math.sqrt(plotmin))/bw);
+                bw = (Math.sqrt(plotmax)-Math.sqrt(plotmin))/numbins;
             } else {
                 bw = (minmaxt[1]-minmaxt[0])/numbins;
                 numbins = (int) Math.ceil((plotmax-plotmin)/bw);

@@ -75,6 +75,10 @@ public final class BinomFit {
             ae[0] = data.exp(theta[numpeaks-1][i]);
             ae[1] = data.experr(theta[numpeaks-1][i],
                                 Math.sqrt(cov.get(numpeaks-1+i,numpeaks-1+i)));
+        } else if (data.preferences.sqrt()) {
+            ae[0] = Math.pow(theta[numpeaks-1][i],2);
+            ae[1] = Math.sqrt(cov.get(numpeaks-1+i,numpeaks-1+i)) *
+                    2*theta[numpeaks-1][i];
         } else {
             ae[0] = theta[numpeaks-1][i];
             ae[1] = Math.sqrt(cov.get(numpeaks-1+i,numpeaks-1+i));
@@ -112,6 +116,9 @@ public final class BinomFit {
         } else if (data.preferences.logarithmic()) {
             maxz = data.log(minmaxt[1]);
             minz = (minmaxt[0]== 0) ? maxz-2 : data.log(minmaxt[0]);
+        } else if (data.preferences.sqrt()) {
+            maxz = Math.sqrt(minmaxt[1]);
+            minz = Math.sqrt(minmaxt[0]);
         } else {
             maxz = minmaxt[1];
             minz = minmaxt[0];
@@ -148,6 +155,11 @@ public final class BinomFit {
             } else if (data.preferences.logarithmic()) {
                 zu = data.log(XY[0]);
                 su = data.logerr(XY[0],XY[1]);
+                x[u] = 1/su;
+                y[u] = zu/su;
+            } else if (data.preferences.sqrt()) {
+                zu = Math.sqrt(XY[0]);
+                su = 0.5*XY[1]/zu;
                 x[u] = 1/su;
                 y[u] = zu/su;
             } else {

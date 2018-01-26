@@ -8,16 +8,15 @@ public class MinAgeMod {
     }
 
     public void gridSearch() throws Exception {
-        boolean doLog = data.preferences.logarithmic();
-        double[] tmM = data.getMinMaxAgeErr(doLog);
+        double[] tmM = data.getMinMaxAgeErr(data.preferences.transformation());
         try {
             int numages = data.length(),
                 ng = 100, ns = 25, np = 10; // number of iterations for each parameter;
-            double[][] ae = data.getDataErrArray(doLog);
+            double[][] ae = data.getDataErrArray(data.preferences.transformation());
             double ming = tmM[0],
                    maxg = tmM[1],
                    dg = (maxg-ming)/ng,
-                   ds = doLog ? 1d/ns : ToolBox.getmaxabs(ming,maxg)/ns,
+                   ds = data.preferences.logarithmic() ? 1d/ns : ToolBox.getmaxabs(ming,maxg)/ns,
                    dp = 1d/np;
             double[] gsp = {ming,1d,1d};
             double oldLL = LL(ae,numages,gsp), newLL;
@@ -41,10 +40,14 @@ public class MinAgeMod {
             gspbest[0] = tmM[0];
             gammaErr = tmM[2];
         }
-        if (doLog){
+        if (data.preferences.logarithmic()){
             gspbest[1] = data.experr(gspbest[0],gspbest[1]);
             gspbest[0] = data.exp(gspbest[0]);
             gammaErr = gammaErr*gspbest[0];
+        } else if (data.preferences.sqrt()){
+            gammaErr = 2*gspbest[0]*gammaErr;
+            gspbest[1] = 2*gspbest[0]*gspbest[1];
+            gspbest[0] = Math.pow(gspbest[0],2);           
         }
     }
 

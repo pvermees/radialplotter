@@ -205,6 +205,7 @@ private void addFrameActions() {
             ButtonGroup transformation = new ButtonGroup();
             transformation.add(this.LinearRadioButton);
             transformation.add(this.LogarithmicRadioButton);
+            transformation.add(this.SqrtRadioButton);
             transformation.add(this.ArcsinRadioButton);
             ButtonGroup input = new ButtonGroup();
             input.add(this.FissionTracksRadioButton);
@@ -228,6 +229,7 @@ private void addFrameActions() {
             this.OtherInputRadioButton.setSelected(prefs.other());
             this.LinearRadioButton.setSelected(prefs.linear());
             this.LogarithmicRadioButton.setSelected(prefs.logarithmic());
+            this.SqrtRadioButton.setSelected(prefs.sqrt());
             this.ArcsinRadioButton.setSelected(prefs.arcsin());
             // the next line prevents automatic editing when inserting and deleting rows
             DataTable.putClientProperty( "JTable.autoStartsEdit", false);
@@ -256,14 +258,20 @@ private void addFrameActions() {
                 this.ResizeTable(3);
                 if (data.preferences.fissiontracks()){
                    this.ArcsinRadioButton.setVisible(true);
+                   this.SqrtRadioButton.setVisible(false);
+                    if (data.preferences.sqrt()){
+                       data.preferences.transformation("arcsin");
+                   }
                 } else if (data.preferences.other()) {
-                   if (data.preferences.arcsin()){
+                   this.ArcsinRadioButton.setVisible(false);
+                   this.SqrtRadioButton.setVisible(true);
+                    if (data.preferences.arcsin()){
                        data.preferences.transformation("linear");
                    }
-                   this.ArcsinRadioButton.setVisible(false);
                 }
-            } else {             // density plot
+            } else { // density plot
                 this.ResizeTable(2);
+                this.SqrtRadioButton.setVisible(true);
                 this.ArcsinRadioButton.setVisible(false);
                 if (data.preferences.arcsin()){
                     data.preferences.transformation("linear");
@@ -272,6 +280,7 @@ private void addFrameActions() {
             this.LinearRadioButton.setSelected(data.preferences.linear());
             this.LogarithmicRadioButton.setSelected(data.preferences.logarithmic());
             this.ArcsinRadioButton.setSelected(data.preferences.arcsin());
+            this.SqrtRadioButton.setSelected(data.preferences.sqrt());
         } catch (Exception e){
             if (Data.DEBUGMODE){e.printStackTrace(System.out);}
         }
@@ -341,6 +350,7 @@ private void addFrameActions() {
         LinearRadioButton = new javax.swing.JRadioButtonMenuItem();
         LogarithmicRadioButton = new javax.swing.JRadioButtonMenuItem();
         ArcsinRadioButton = new javax.swing.JRadioButtonMenuItem();
+        SqrtRadioButton = new javax.swing.JRadioButtonMenuItem();
         PeakFitMenuItem = new javax.swing.JMenu();
         noPeaks = new javax.swing.JRadioButtonMenuItem();
         onePeak = new javax.swing.JRadioButtonMenuItem();
@@ -1600,6 +1610,15 @@ private void addFrameActions() {
         });
         TransformationMenuItem.add(ArcsinRadioButton);
 
+        SqrtRadioButton.setSelected(true);
+        SqrtRadioButton.setText("Square root");
+        SqrtRadioButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SqrtRadioButtonActionPerformed(evt);
+            }
+        });
+        TransformationMenuItem.add(SqrtRadioButton);
+
         OptionMenu.add(TransformationMenuItem);
 
         PeakFitMenuItem.setText("Mixture Models");
@@ -1725,27 +1744,27 @@ private void addFrameActions() {
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(layout.createSequentialGroup()
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(rhoD, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)
-                            .add(ZetaDoseRate, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE))
+                            .add(rhoD)
+                            .add(ZetaDoseRate))
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(ZetaDoseRatePMlabel)
                             .add(rhoDpmLabel))
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(rhoD_err, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
-                            .add(ZetaDoseRateErr, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE))
+                            .add(rhoD_err)
+                            .add(ZetaDoseRateErr))
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
                             .add(rhoDunitLabel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .add(zetaDoseUnitLabel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .add(samplename, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 311, Short.MAX_VALUE))
+                    .add(samplename))
                 .addContainerGap())
-            .add(scrollpane, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 476, Short.MAX_VALUE)
+            .add(scrollpane, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
             .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(200, Short.MAX_VALUE)
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .add(PlotButton)
-                .addContainerGap(201, Short.MAX_VALUE))
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -1769,7 +1788,7 @@ private void addFrameActions() {
                     .add(rhoD_err, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(rhoDunitLabel))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(scrollpane, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE)
+                .add(scrollpane, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(PlotButton))
         );
@@ -2209,7 +2228,10 @@ private void addFrameActions() {
         this.rhoD.setVisible(true);
         this.rhoD_err.setVisible(true);
         this.rhoDunitLabel.setVisible(true);
-        this.ArcsinRadioButton.setVisible(true);
+        if (data.preferences.radialplot()){
+            this.ArcsinRadioButton.setVisible(true);
+            this.SqrtRadioButton.setVisible(false);
+        }
         this.setLabels();
         data = FTdata.cast(data);
     }
@@ -2226,6 +2248,7 @@ private void addFrameActions() {
         this.rhoD_err.setVisible(false);
         this.rhoDunitLabel.setVisible(false);
         this.ArcsinRadioButton.setVisible(false);
+        this.SqrtRadioButton.setVisible(true);
         this.setLabels();
         data = OtherData.cast(data);
     }
@@ -2340,6 +2363,15 @@ private void DensityPlotRadioButtonActionPerformed(java.awt.event.ActionEvent ev
 private void minimumAgeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_minimumAgeActionPerformed
     setPeaks(-1);
 }//GEN-LAST:event_minimumAgeActionPerformed
+
+    private void SqrtRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SqrtRadioButtonActionPerformed
+       try {
+            data.preferences.transformation("sqrt");
+            transform(data);
+        } catch (Exception e){
+            if (Data.DEBUGMODE){e.printStackTrace(System.out);}
+        }
+    }//GEN-LAST:event_SqrtRadioButtonActionPerformed
 
 private void ArcSinTest() throws Exception {
     if (data.preferences.fissiontracks() & data.hasZeros()){
@@ -2534,6 +2566,7 @@ public static void main(final String args[]) {
     private javax.swing.JMenuItem SaveDataMenuItem;
     private javax.swing.JMenuItem SavePlotMenuItem;
     private javax.swing.JMenuItem SetAxesMenuItem;
+    private javax.swing.JRadioButtonMenuItem SqrtRadioButton;
     private javax.swing.JMenu TransformationMenuItem;
     private javax.swing.JTextField ZetaDoseRate;
     private javax.swing.JTextField ZetaDoseRateErr;
