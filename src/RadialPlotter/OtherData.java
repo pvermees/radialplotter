@@ -106,11 +106,7 @@ public class OtherData extends Data implements Iterator, Iterable {
         }
         // calculate the central value (z)
         if (!fixedAxes) {
-            if (preferences.logarithmic()){
-                tsd = this.getGeometricMean();
-            } else {
-                tsd = this.getArithmeticMean();
-            }
+            tsd = this.getMean(preferences.transformation());
             this.set_z0(this.t2z(tsd[0]));
         }
         // calculate and add the corresponding rx and ry values
@@ -132,7 +128,7 @@ public class OtherData extends Data implements Iterator, Iterable {
     @Override
     /* in this case, return the weighted geometric mean*/
     double[] getCentralAge() throws Exception {
-        return this.getGeometricMean();
+        return this.getMean(preferences.transformation());
     }
 
     @Override
@@ -143,13 +139,13 @@ public class OtherData extends Data implements Iterator, Iterable {
     
     /* return the weighted arithmetic mean*/
     double[] getGeometricMean() throws Exception {
-        return getMean(true);
+        return getMean("logarithmic");
     }
 
     /* return the weighted arithmetic mean*/
     @Override
     double[] getArithmeticMean() throws Exception {
-        return getMean(false);
+        return getMean("linear");
     }
 
     @Override
@@ -171,27 +167,35 @@ public class OtherData extends Data implements Iterator, Iterable {
         return 1 - Stat.chiSquareCDF(X2, this.length()-1);
     }
     
-    double[] getMean(boolean geometric) throws Exception {
+    double[] getMean(String transformation) throws Exception {
         ArrayList<double[]> tst = new ArrayList<double[]>();
         double[] AgeErr, MuXi, out = new double[3];
         double Var, dispersion;
         for (Iterator i= this.iterator(); i.hasNext(); ) {
             AgeErr = (double[]) i.next();
-            if (geometric) {
+            if (transformation.equals("logarithmic")) {
                 AgeErr[1] = this.logerr(AgeErr[0],AgeErr[1]);
                 AgeErr[0] = this.log(AgeErr[0]);
+            } else if (transformation.equals("sqrt")) {
+                AgeErr[0] = Math.sqrt(AgeErr[0]);
+                AgeErr[1] = 0.5*AgeErr[1]/AgeErr[0];
             }
             tst.add(AgeErr);
         }
         MuXi = Newton.solveMuXi(tst);
         Var = Newton.gettv(tst,MuXi[1]);
-        dispersion = Math.sqrt(MuXi[1]);
-        if (geometric){
+        if (transformation.equals("logarithmic")) {
             out[0] = this.exp(MuXi[0]);
             out[1] = this.experr(MuXi[0], Math.sqrt(Var));
+            dispersion = Math.sqrt(MuXi[1]);
+        } else if (transformation.equals("sqrt")) {
+            out[0] = Math.pow(MuXi[0],2);
+            out[1] = 2*Math.sqrt(Var)*MuXi[0];
+            dispersion = 2*Math.sqrt(MuXi[1])/MuXi[0];
         } else {
             out[0] = MuXi[0];
             out[1] = Math.sqrt(Var);
+            dispersion = Math.sqrt(MuXi[1])/MuXi[0];
         }
         out[2] = dispersion<0.00001 ? 0 : dispersion;
         return out;

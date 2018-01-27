@@ -17,9 +17,9 @@ and open the template in the editor.
 The analytical precision of many geochronological datasets is proportional to
 the age. Therefore, the relative errors generally show less grain-to-grain
 variability than the absolute errors. To take advantage of this, it may be
-beneficial to log-transform the data before plotting them on a KDE, PDP, or
-histogram. To do this, select the appropriate option in the 
-<tt>Options</tt>&#8594; <tt>Transformations</tt> menu.
+beneficial to subject the data to a logarithmic or square root-transform 
+before plotting them on a KDE, PDP, or histogram. To do this, select the 
+appropriate option in the <tt>Options</tt>&#8594; <tt>Transformations</tt> menu.
 
 
 <h3>Radial Plots</h3>
@@ -49,8 +49,7 @@ used by default, unless there are grains with zero spontaneous tracks,
 in which case the program defaults to <tt>Arcsine</tt>.
 
 <p>
-To plot 'Other' input data on radial plots, only two transformations are
-available, with a default set to <tt>Logarithmic</tt>.
+To plot 'Other' input data on radial plots, the transformations are as follows:
 
 <p>
 Linear:<br>
@@ -61,7 +60,14 @@ Logarithmic:<br>
 <img src="OTHERlogarithmic.png">
 <br>
 Where a=0 if all the values are positive and a>0 if there are negative
-values (Galbraith, 2010).
+values (Galbraith, 2010).<br>
+
+<p>
+Square root:<br>
+<img src="OTHERsqrt.png">
+<br>
+
+The default is set to <tt>Logarithmic</tt>.
 
   </body>
 </html>
