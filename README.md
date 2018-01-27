@@ -3,17 +3,13 @@ A Java program to visualise distributional data on radial plots and kernel densi
 
 ## Prerequisites
 
-Java 6 or higher (see [http://java.com]{http://java.com})
+**RadialPlotter** requires Java 6 or higher (see [http://java.com]{http://java.com})
+
+The program was developed using Netbeans with JDK 1.6.
 
 ## Installation
 
-To run the latest development version of **RadialPlotter**, simply download the .jar file 
-from [GitHub](https://github.com/pvermees/radialplotter/tree/master/dist) and double-click.
-The latest stable version can be accessed from the Radial/DensityPlotter web links provided below.
-
-## Development
-
-**RadialPlotter** was developed using Netbeans with JDK 1.6.
+Download the .jar file from [GitHub](https://github.com/pvermees/radialplotter/tree/master/dist) and double-click.
 
 ## Further information
 
@@ -25,9 +21,9 @@ Both programs offer the same functionality albeit with different presets.
 
 ## References
 
-* Vermeesch, P., 2009, RadialPlotter: a Java application for fission track, luminescence and other radial plots, *Radiation Measurements*, 44, 4, 409-410
+* Vermeesch, P., 2009, [RadialPlotter: a Java application for fission track, luminescence and other radial plots](http://www.ucl.ac.uk/~ucfbpve/papers/VermeeschRadMeas2009.pdf), *Radiation Measurements*, 44, 4, 409-410
 
-* Vermeesch, P., 2012. On the visualisation of detrital age distributions. *Chemical Geology*, v.312-313, 190-194
+* Vermeesch, P., 2012. [On the visualisation of detrital age distributions](http://www.ucl.ac.uk/~ucfbpve/papers/VermeeschChemGeol2012.pdf). *Chemical Geology*, v.312-313, 190-194
 
 ## Author
 
