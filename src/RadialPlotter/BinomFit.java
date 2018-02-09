@@ -71,17 +71,10 @@ public final class BinomFit {
             ae[1] = ae[0]*Math.sqrt( betaErr2 +
                     Math.pow(ftdata.getRhoD_Err()/ftdata.getRhoD(),2) +
                     Math.pow(ftdata.getZeta_Err()/ftdata.getZeta(),2));
-        } else if (data.preferences.logarithmic()) {
+        } else {
             ae[0] = data.exp(theta[numpeaks-1][i]);
             ae[1] = data.experr(theta[numpeaks-1][i],
                                 Math.sqrt(cov.get(numpeaks-1+i,numpeaks-1+i)));
-        } else if (data.preferences.sqrt()) {
-            ae[0] = Math.pow(theta[numpeaks-1][i],2);
-            ae[1] = Math.sqrt(cov.get(numpeaks-1+i,numpeaks-1+i)) *
-                    2*theta[numpeaks-1][i];
-        } else {
-            ae[0] = theta[numpeaks-1][i];
-            ae[1] = Math.sqrt(cov.get(numpeaks-1+i,numpeaks-1+i));
         }
         return ae;
     }
@@ -113,15 +106,9 @@ public final class BinomFit {
         if (data instanceof FTdata){
             maxz = FT.getz((FTdata)(data), minmaxt[1]);
             minz = (minmaxt[0]== 0) ? maxz-2 : FT.getz((FTdata)(data), minmaxt[0]);
-        } else if (data.preferences.logarithmic()) {
+        } else {
             maxz = data.log(minmaxt[1]);
             minz = (minmaxt[0]== 0) ? maxz-2 : data.log(minmaxt[0]);
-        } else if (data.preferences.sqrt()) {
-            maxz = Math.sqrt(minmaxt[1]);
-            minz = Math.sqrt(minmaxt[0]);
-        } else {
-            maxz = minmaxt[1];
-            minz = minmaxt[0];
         }
         for (int i=0; i<k; i++){
             pi[k-1][i] = 1.0/k;
@@ -152,19 +139,9 @@ public final class BinomFit {
             if (data instanceof FTdata){
                 y[u] = XY[0];
                 m[u] = XY[0] + XY[1];
-            } else if (data.preferences.logarithmic()) {
+            } else {
                 zu = data.log(XY[0]);
                 su = data.logerr(XY[0],XY[1]);
-                x[u] = 1/su;
-                y[u] = zu/su;
-            } else if (data.preferences.sqrt()) {
-                zu = Math.sqrt(XY[0]);
-                su = 0.5*XY[1]/zu;
-                x[u] = 1/su;
-                y[u] = zu/su;
-            } else {
-                zu = XY[0];
-                su = XY[1];
                 x[u] = 1/su;
                 y[u] = zu/su;
             }

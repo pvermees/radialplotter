@@ -128,7 +128,7 @@ public class OtherData extends Data implements Iterator, Iterable {
     @Override
     /* in this case, return the weighted geometric mean*/
     double[] getCentralAge() throws Exception {
-        return this.getMean(preferences.transformation());
+        return this.getMean("log");
     }
 
     @Override

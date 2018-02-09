@@ -130,12 +130,8 @@ public class RadialPlot extends Plot {
                 beta = ToolBox.log(theta[numpeaks-1][i]/(1-theta[numpeaks-1][i]));
                 t = FT.getFTage(((FTdata)data).getZeta(),
                                 ((FTdata)data).getRhoD(), Math.exp(beta), 1);
-            } else if (data.preferences.logarithmic()) {
-                t = data.exp(theta[numpeaks-1][i]);
-            } else if (data.preferences.sqrt()) {
-                t = Math.pow(theta[numpeaks-1][i],2);
             } else {
-                t = theta[numpeaks-1][i];
+                t = data.exp(theta[numpeaks-1][i]);
             }
             drawLine(t);
         }

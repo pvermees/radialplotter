@@ -8,15 +8,15 @@ public class MinAgeMod {
     }
 
     public void gridSearch() throws Exception {
-        double[] tmM = data.getMinMaxAgeErr(data.preferences.transformation());
+        double[] tmM = data.getMinMaxAgeErr("logarithmic");
         try {
             int numages = data.length(),
                 ng = 100, ns = 25, np = 10; // number of iterations for each parameter;
-            double[][] ae = data.getDataErrArray("log");
+            double[][] ae = data.getDataErrArray("logarithmic");
             double ming = tmM[0],
                    maxg = tmM[1],
                    dg = (maxg-ming)/ng,
-                   ds = data.preferences.logarithmic() ? 1d/ns : ToolBox.getmaxabs(ming,maxg)/ns,
+                   ds = 1d/ns,
                    dp = 1d/np;
             double[] gsp = {ming,1d,1d};
             double oldLL = LL(ae,numages,gsp), newLL;
