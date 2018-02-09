@@ -87,6 +87,7 @@ private void addFrameActions() {
             double min = Data.NAN, max = Data.NAN,
                    central = Data.NAN, bandwidth = Data.NAN,
                    binwidth = Data.NAN, area = Data.NAN;
+            int numpeaks = 0;
             String in = "", out = "", format = "pdf", markers = "";
             boolean plotandclose = false;
             // read the arguments and assign values to the input parameters
@@ -113,6 +114,8 @@ private void addFrameActions() {
                         plotandclose = true;
                     } else if (arg[0].equalsIgnoreCase("markers")){
                         markers = arg[1];
+                    } else if (arg[0].equalsIgnoreCase("numpeaks")){
+                        numpeaks = Integer.parseInt(arg[1]);
                     }
                 } catch (NumberFormatException e) {
                     System.out.println("Incorrect input arguments");
@@ -131,8 +134,12 @@ private void addFrameActions() {
                 panel.getPlot().setCentralAge(central);
             }
             if (bandwidth > 0){
-                panel.densityplot.autoBandwidth(false);
-                panel.densityplot.kde.setBandwidth(bandwidth);
+                panel.getPlot().autoBandwidth = false;
+                if (data.preferences.densityplot()){
+                    panel.densityplot.kde.setBandwidth(bandwidth);                   
+                } else {
+                    panel.radialplot.kde.setBandwidth(bandwidth); 
+                }
             }
             if (area > 0){
                 panel.densityplot.autoArea(false);
@@ -144,6 +151,9 @@ private void addFrameActions() {
             }
             if (!markers.isEmpty()){
                 panel.getPlot().plotMarkers(markers);
+            }
+            if (numpeaks != 0){
+                data.numpeaks = numpeaks;
             }
             if (plotandclose){
                 panel.refresh(data);
@@ -2605,7 +2615,7 @@ public static void main(final String args[]) {
     private JFileChooser fc;
     protected LineNumberTable lineTable;
     static final boolean DENSITYPLOTTER = false;
-    static final String VERSION = "8.3";
+    static final String VERSION = "9.0";
     private String idir = "", odir = "";
     
 }

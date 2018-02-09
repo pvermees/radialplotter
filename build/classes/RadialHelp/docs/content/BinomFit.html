@@ -53,14 +53,8 @@ and n is the number of grains (Galbraith, 2005).
 <p></p>
 For <tt>Other</tt> data, a different algorithm is used, based on the normal
 mixture modelling algorithm of Galbraith (2005, section 5.5.2). The output
-comprises the peak locations and proportions. For fission track data, the
-data are log-transformed prior to the mixture modelling. For <tt>Other</tt>
-data, the log-transformation is only enforced if the <tt>Logarithmic</tt>
-option is selected in the <tt>Transformation</tt> menu. Otherwise, the mixture
-modelling will use the raw or square root transformed data. As a consequence, the 
-peak locations will generally differ depending on the selected data transformation 
-for <tt>Other</tt> data. For fission track data, the mixture models will always 
-yield the same results.
+comprises the peak locations and proportions. All data are log-transformed prior 
+to the mixture modelling regardless of the transformation used for the plotting.
 
 <h2>Minimum age model</h2>
 
