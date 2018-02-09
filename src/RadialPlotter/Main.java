@@ -2375,12 +2375,15 @@ private void minimumAgeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
 
 private void ArcSinTest() throws Exception {
     if (data.preferences.fissiontracks() & data.hasZeros()){
-        if (this.RadialPlotRadioButton.isSelected()){
+        if (this.RadialPlotRadioButton.isSelected() &
+            !data.preferences.transformation().equals("arcsin")){
             this.ArcsinRadioButton.doClick();
-        } else {
+        }
+        if (this.DensityPlotRadioButton.isSelected() &
+            !data.preferences.transformation().equals("linear")) {
             this.LinearRadioButton.doClick();
         }
-    }    
+    }
 }
 
 private void ResizeTable(int size) throws Exception {

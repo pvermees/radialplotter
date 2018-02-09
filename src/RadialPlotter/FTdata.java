@@ -305,7 +305,8 @@ public class FTdata extends Data implements Iterator, Iterable {
             ages[1][j] = FT.getFTageErr(zeta, zeta_err, rhoD, rhoD_err, NsNi[0]+buff, NsNi[1]+buff);
             if (transformation.equals("linear")){
                 out = ages;
-            } else if (transformation.equals("logarithmic")){
+            } else if (transformation.equals("logarithmic") | 
+                       transformation.equals("arcsin")){
                 out[0][j] = ToolBox.log(ages[0][j]);
                 out[1][j] = ages[1][j]/ages[0][j];
             } else if (transformation.equals("sqrt")){

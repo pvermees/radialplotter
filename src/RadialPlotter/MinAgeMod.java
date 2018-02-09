@@ -12,7 +12,7 @@ public class MinAgeMod {
         try {
             int numages = data.length(),
                 ng = 100, ns = 25, np = 10; // number of iterations for each parameter;
-            double[][] ae = data.getDataErrArray(data.preferences.transformation());
+            double[][] ae = data.getDataErrArray("log");
             double ming = tmM[0],
                    maxg = tmM[1],
                    dg = (maxg-ming)/ng,
@@ -40,15 +40,9 @@ public class MinAgeMod {
             gspbest[0] = tmM[0];
             gammaErr = tmM[2];
         }
-        if (data.preferences.logarithmic()){
-            gspbest[1] = data.experr(gspbest[0],gspbest[1]);
-            gspbest[0] = data.exp(gspbest[0]);
-            gammaErr = gammaErr*gspbest[0];
-        } else if (data.preferences.sqrt()){
-            gammaErr = 2*gspbest[0]*gammaErr;
-            gspbest[1] = 2*gspbest[0]*gspbest[1];
-            gspbest[0] = Math.pow(gspbest[0],2);           
-        }
+        gspbest[1] = data.experr(gspbest[0],gspbest[1]);
+        gspbest[0] = data.exp(gspbest[0]);
+        gammaErr = gammaErr*gspbest[0];
     }
 
     static double LL(double[][] ae, int numages, double[] gsp){
