@@ -19,19 +19,9 @@ and open the template in the editor.
      Fission Track data, and in
     <a href="Other.html">this</a> section for Other data.
     <p></p>
-    <b>2. Why don't the peaks in my mixture model fit the modes?</b><br>
-     The mixture modelling uses the algorithms of Galbraith and Green (1993),
-     which have been adopted by Sambridge and Compston (1994) or U-Pb dating
-     as well. When applied to <tt>Other</tt> data, the model assumes 
-     Normal residuals. This is generally <i>not</i> the case for 
-     (strictly positive) radiometric ages, causing biased estimates of
-     the component ages. To alleviate this problem, it is a good idea
-     to apply a logarithmic <a href="Transformations.html">transformation</a>
-     prior to the mixture modelling.
-    <p></p>
-    <b>3. How many peaks to fit?</b><br>
+    <b>2. How many peaks to fit?</b><br>
       The algorithms of Galbraith and Green (1993) assume that the true 
-      age distribution which underlies the data consists of a number of 
+      age distribution underlying the data consists of a number of 
       discrete peaks. This assumption is necessary for reasons of parsimony. 
       In reality, however, discrete events rarely occur in Nature. It is
       important to keep this in mind when using automated algorithms such
@@ -40,7 +30,7 @@ and open the template in the editor.
       justification to fit more peaks. It is generally more informative
       to use a fixed number of peaks or apply the minimum age model.
       <p></p>  
-    <b>4. Can I change the bandwidth of my KDE?</b><br>
+    <b>3. Can I change the bandwidth of my KDE?</b><br>
       <tt>DensityPlotter</tt> uses the algorithm of Botev et al. (2010)
       to set a default bandwidth. This is just one of literally dozens
       of similar bandwidth selection algorithms, which seems to work
@@ -58,5 +48,15 @@ and open the template in the editor.
       in the <a href="Settings.html"><tt>Settings</tt></a> form.
       In such situations, the user is advised to report the bandwidth 
       in the figure caption.
+    <p></p>
+    <b>4. Why don't the peaks in my mixture model fit the modes?</b><br>
+      First, the number modes in a KDE strongly depends on the kernel bandwidth.
+      Changing this to a higher or lower value may lead to spurious modes that
+      do not necessarily reflect true underlying populations. 
+      Second, the mixture modelling uses the algorithms of 
+      Galbraith and Green (1993), which have been adopted by Sambridge and
+      Compston (1994) or U-Pb dating as well. When applied to <tt>Other</tt> 
+      data, the model assumes lognormal residuals. This assumption may or may 
+      not be valid for the data.
   </body>
 </html>
