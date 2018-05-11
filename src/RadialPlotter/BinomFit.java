@@ -146,8 +146,8 @@ public final class BinomFit {
                 y[u] = zu/su;
             }
         }
-        // 20 iterations should be enough to ensure convergence
-        for (int j=0; j<20; j++) {
+        // 100 iterations should be enough to ensure convergence
+        for (int j=0; j<100; j++) {
             if (data instanceof OtherData){
                 MAXEXP = getMaxExp(x, y, k, n); // overall maximum
             }
@@ -159,7 +159,7 @@ public final class BinomFit {
                 }
                 if (data instanceof FTdata){
                     for (int i=0; i<k; i++){
-                        // f[i][u] = Stat.binomialPDF(theta[k-1][i],m[u],y[u]);
+                        //f[i][u] = Stat.binomialPDF(theta[k-1][i],m[u],y[u]);
                         f[i][u] = treshold(Math.pow(theta[k-1][i],y[u])*Math.pow(1-theta[k-1][i],m[u]-y[u]));
                         a[i][u] = y[u] - theta[k-1][i]*m[u];
                         b[i][u] = Math.pow(y[u]-theta[k-1][i]*m[u],2) -
