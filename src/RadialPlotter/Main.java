@@ -2614,8 +2614,8 @@ public static void main(final String args[]) {
     private URL hsURL;
     private JFileChooser fc;
     protected LineNumberTable lineTable;
-    static final boolean DENSITYPLOTTER = false;
-    static final String VERSION = "9.2";
+    static final boolean DENSITYPLOTTER = true;
+    static final String VERSION = "8.3";
     private String idir = "", odir = "";
     
 }

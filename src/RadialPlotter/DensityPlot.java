@@ -311,8 +311,8 @@ public final class DensityPlot extends Plot {
             val = data.exp(data.log(plotmin) + (x-leftmargin)*
                  (data.log(plotmax)-data.log(plotmin))/(1-leftmargin-rightmargin));
         } else if (data.preferences.sqrt()) {
-            val = Math.pow(plotmin,2) + (x-leftmargin)*
-                 (Math.pow(plotmax,2)-Math.pow(plotmin,2))/(1-leftmargin-rightmargin);
+            val = Math.pow(Math.sqrt(plotmin) + (x-leftmargin)*
+                 (Math.sqrt(plotmax)-Math.sqrt(plotmin))/(1-leftmargin-rightmargin),2);
         } else {
             val = plotmin + (x-leftmargin)*
                  (plotmax-plotmin)/(1-leftmargin-rightmargin);
