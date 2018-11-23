@@ -21,7 +21,7 @@
             <zipfileset src="${dist.dir}/lib/freehep-io-2.3.jar"/>
             <zipfileset src="${dist.dir}/lib/Jama-1.0.3.jar"/>
             <zipfileset src="${dist.dir}/lib/jhbasic-2.0.jar"/>
-            <zipfileset src="${libs.swing-layout.classpath}"/>
+            <zipfileset src="${dist.dir}/lib/swing-layout-1.0.4.jar"/>
         </jar>
     </target>
 

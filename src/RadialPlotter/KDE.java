@@ -265,14 +265,15 @@ public class KDE {
     }    
     
     public double getG(double[] fX, boolean epanechnikov) throws Exception{
-        int j=0, G=0;
+        int j=0;
+        double logsum=0;
         for (int i=0; i<fX.length; i++){
             if (fX[i]>0){
-                G += ToolBox.log(fX[i]);
+                logsum += ToolBox.log(fX[i]);
                 j++;
             }
         }
-        return Math.exp(G/j);
+        return Math.exp(logsum/j);
     }
     
     // implements the adaptive KDE algorithm of Abramson (1982) as described by Jann (2007)

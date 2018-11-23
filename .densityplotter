@@ -7,7 +7,7 @@ stroke_histogram: true
 max_bar_colour: 0xff0000
 hist_stroke_colour: 0x808080
 PDP_stroke_colour: 0x000000
-output: radialplot
+output: densityplot
 adaptive: true
 hist_fill_colour: 0xffffff
 stroke_data_points: true
@@ -22,7 +22,7 @@ plot_2-sigma_lines: false
 save_preferences: false
 transformation: linear
 KDE_fill_colour: 0x00ffff
-version: 7.3
+version: 8.3
 stroke_KDE: true
 normalise: false
 fill_PDP: false
