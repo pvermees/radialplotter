@@ -2615,7 +2615,7 @@ public static void main(final String args[]) {
     private JFileChooser fc;
     protected LineNumberTable lineTable;
     static final boolean DENSITYPLOTTER = false;
-    static final String VERSION = "9.4";
+    static final String VERSION = "9.5";
     private String idir = "", odir = "";
     
 }

@@ -45,8 +45,9 @@ class FT{
             theta = numt/sum_wj;
         }while((1e-4 < Math.abs(sigma-sigma0)/sigma) || (1e-4 < Math.abs(theta-theta0)/theta));
         ts[0] = ToolBox.log(1+0.5*LAMBDA*data.getZeta()*data.getRhoD()*theta/(1-theta))/LAMBDA;
-        ts[1] = ts[0] * Math.sqrt(1/(theta*theta*(1-theta)*(1-theta)*sum_wj +
-                data.getZeta_Err()*data.getZeta_Err()/(data.getZeta()*data.getZeta())));
+        ts[1] = ts[0] * Math.sqrt(1/(theta*theta*(1-theta)*(1-theta)*sum_wj) +
+                data.getRhoD_Err()*data.getRhoD_Err()/(data.getRhoD()*data.getRhoD()) +
+                data.getZeta_Err()*data.getZeta_Err()/(data.getZeta()*data.getZeta()));
         ts[2] = sigma<0.00001 ? 0 : sigma;
         return ts;
     }
