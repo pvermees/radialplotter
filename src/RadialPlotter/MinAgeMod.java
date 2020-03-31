@@ -1,5 +1,7 @@
 package RadialPlotter;
 
+import java.util.Arrays;
+
 public class MinAgeMod {
 
     public MinAgeMod(Data data){
