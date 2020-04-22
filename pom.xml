@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>uk.ac.ucl</groupId>
+  <artifactId>radialplotter</artifactId>
+  <version>9.5</version> <!-- RadialPlotter version. See both <flavour.version>s -->
+
+  <name>radialplotter</name>
+  <url>https://www.ucl.ac.uk/~ucfbpve/radialplotter/</url>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>1.7</maven.compiler.source>
+    <maven.compiler.target>1.7</maven.compiler.target>
+    <app.main.class>RadialPlotter.Main</app.main.class>
+    <flavour>radial</flavour> <!-- radial or density -->
+    <flavour.version>${project.version}</flavour.version>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>javax.help</groupId>
+      <artifactId>javahelp</artifactId>
+      <version>2.0.05</version>
+    </dependency>
+    <dependency>
+      <groupId>net.java.dev.swing-layout</groupId>
+      <artifactId>swing-layout</artifactId>
+      <version>1.0.2</version>
+    </dependency>
+      <dependency>
+      <groupId>org.freehep</groupId>
+      <artifactId>freehep-graphics2d</artifactId>
+      <version>2.4</version>
+    </dependency>
+    <dependency>
+      <groupId>org.freehep</groupId>
+      <artifactId>freehep-graphicsio-pdf</artifactId>
+      <version>2.4</version>
+    </dependency>
+    <dependency>
+      <groupId>org.freehep</groupId>
+      <artifactId>freehep-graphicsio</artifactId>
+      <version>2.4</version>
+    </dependency>
+    <dependency>
+      <groupId>org.freehep</groupId>
+      <artifactId>freehep-graphicsbase</artifactId>
+      <version>2.4</version>
+    </dependency>
+    <dependency>
+      <groupId>org.freehep</groupId>
+      <artifactId>freehep-io</artifactId>
+      <version>2.2.2</version>
+    </dependency>
+    <dependency>
+      <groupId>gov.nist.math</groupId>
+      <artifactId>jama</artifactId>
+      <version>1.0.3</version>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <artifactId>maven-clean-plugin</artifactId>
+          <version>3.1.0</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-resources-plugin</artifactId>
+          <version>3.0.2</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>3.8.0</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-jar-plugin</artifactId>
+          <version>3.0.2</version>
+          <configuration>
+            <archive>
+              <manifest>
+                <addClasspath>true</addClasspath>
+                <mainClass>${app.main.class}</mainClass>
+              </manifest>
+            </archive>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>3.2.3</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+            <configuration>
+              <!-- leave all test implementations out of the uberjar -->
+              <artifactSet>
+                <excludes>
+                  <exclude>junit:junit</exclude>
+                  <exclude>org.hamcrest:hamcrest-core</exclude>
+                </excludes>
+              </artifactSet>
+              <transformers>
+                <!-- both freehep graphicsio and graphicsio-pdf define export file types in matching files,
+                  so we need to concatenate these together -->
+                <transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+                  <resource>META-INF/services/org.freehep.graphicsbase.util.export.ExportFileType</resource>
+                </transformer>
+                <!-- all the manifests need to be combined -->
+                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                  <manifestEntries>
+                    <Main-Class>${app.main.class}</Main-Class>
+                  </manifestEntries>
+                </transformer>
+              </transformers>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+      </resource>
+      <resource>
+        <directory>src/main/resources-filtered</directory>
+        <filtering>true</filtering>
+      </resource>
+    </resources>
+  </build>
+  <profiles>
+    <profile>
+      <id>density</id>
+      <properties>
+        <flavour>density</flavour>
+        <flavour.version>8.5</flavour.version> <!-- DensityPlotter version -->
+      </properties>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-jar-plugin</artifactId>
+            <configuration>
+              <finalName>densityplotter-${flavour.version}</finalName>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+</project>
