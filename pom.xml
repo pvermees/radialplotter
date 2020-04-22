@@ -6,7 +6,7 @@
 
   <groupId>uk.ac.ucl</groupId>
   <artifactId>radialplotter</artifactId>
-  <version>1.0</version>
+  <version>9.5</version> <!-- RadialPlotter version. See both <flavour.version>s -->
 
   <name>radialplotter</name>
   <url>https://www.ucl.ac.uk/~ucfbpve/radialplotter/</url>
@@ -17,6 +17,7 @@
     <maven.compiler.target>1.7</maven.compiler.target>
     <app.main.class>RadialPlotter.Main</app.main.class>
     <flavour>radial</flavour> <!-- radial or density -->
+    <flavour.version>${project.version}</flavour.version>
   </properties>
 
   <dependencies>
@@ -143,15 +144,15 @@
       <id>density</id>
       <properties>
         <flavour>density</flavour>
+        <flavour.version>8.5</flavour.version> <!-- DensityPlotter version -->
       </properties>
       <build>
         <plugins>
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-jar-plugin</artifactId>
-            <version>3.0.2</version>
             <configuration>
-              <finalName>densityplotter-${project.version}</finalName>
+              <finalName>densityplotter-${flavour.version}</finalName>
             </configuration>
           </plugin>
         </plugins>
