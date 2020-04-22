@@ -5,7 +5,19 @@ A Java program to visualise distributional data on radial plots and kernel densi
 
 **RadialPlotter** requires Java 6 or higher (see [http://java.com]{http://java.com})
 
-The program was developed using Netbeans with JDK 1.6.
+RadialPlotter is built with Maven. Radial plotter is built and run as follows:
+
+```sh
+mvn verify
+java -jar target/radialplotter-1.0.jar
+```
+
+Density plotter is built and run as follows:
+
+```sh
+mvn -Pdensity verify
+java -jar target/densityplotter-1.0.jar
+```
 
 ## Installation
 

@@ -211,6 +211,9 @@ private void addFrameActions() {
                     System.exit(0);
                 }
             });
+            Properties properties = new Properties();
+            properties.load(Main.class.getResourceAsStream("/plotter.properties"));
+            DENSITYPLOTTER = properties.getProperty("flavour").equalsIgnoreCase("density");
             data = new FTdata(new Preferences(DENSITYPLOTTER));
             ButtonGroup transformation = new ButtonGroup();
             transformation.add(this.LinearRadioButton);
@@ -2614,7 +2617,7 @@ public static void main(final String args[]) {
     private URL hsURL;
     private JFileChooser fc;
     protected LineNumberTable lineTable;
-    static final boolean DENSITYPLOTTER = false;
+    static boolean DENSITYPLOTTER = false;
     static final String VERSION = "9.5";
     private String idir = "", odir = "";
     
