@@ -3,25 +3,21 @@ A Java program to visualise distributional data on radial plots and kernel densi
 
 ## Prerequisites
 
-**RadialPlotter** requires Java 6 or higher (see [http://java.com]{http://java.com})
+**RadialPlotter**/**DensityPlotter** requires Java 6 or higher (see [http://java.com](http://java.com))
 
-RadialPlotter is built with Maven. Radial plotter is built and run as follows:
+**RadialPlotter** is built with Maven:
 
 ```sh
 mvn verify
-java -jar target/radialplotter-1.0.jar
+java -jar target/radialplotter-x.x.jar
 ```
 
-Density plotter is built and run as follows:
+**DensityPlotter** is built and run as follows:
 
 ```sh
 mvn -Pdensity verify
-java -jar target/densityplotter-1.0.jar
+java -jar target/densityplotter-x.x.jar
 ```
-
-## Installation
-
-Download the .jar file from [GitHub](https://github.com/pvermees/radialplotter/tree/master/dist) and double-click.
 
 ## Further information
 
